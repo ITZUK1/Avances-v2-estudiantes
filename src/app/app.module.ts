@@ -8,7 +8,7 @@ import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-i
 @NgModule({
   declarations: [
     AppComponent,
-    PantallaInicioComponent
+    
   ],
   imports: [
     BrowserModule,
