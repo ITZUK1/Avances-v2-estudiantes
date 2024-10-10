@@ -4,12 +4,14 @@ import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-i
 import { pantallaProfesorComponent } from './components/pantalla-profesor/pantalla-profesor.component';
 import { PantallaEstudianteComponent } from './components/pantalla-estudiante/pantalla-estudiante.component';
 import { TablaComponent } from './components/tabla/tabla.component';
+import { MateriasComponent } from './components/materias/materias.component';
 
 const routes: Routes = [
-  {path: 'pantalla-inicio',component:PantallaInicioComponent},
-  {path: 'app-pantalla-profesor',component:pantallaProfesorComponent},
-  {path: 'pantalla-estudiante',component:PantallaEstudianteComponent},
-  {path: 'tabla',component:TablaComponent},
+  {path: 'Pantalla-inicio',component:PantallaInicioComponent},
+  {path: 'Pantalla-profesor',component:pantallaProfesorComponent},
+  {path: 'Pantalla-estudiante',component:PantallaEstudianteComponent},
+  {path: 'Materias',component:MateriasComponent},
+  {path: 'Tabla',component:TablaComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,48 @@
+/* Estilo para la barra de navegación */
+.navbar {
+    background: linear-gradient(90deg, rgba(255, 183, 77, 1) 0%, rgba(255, 107, 107, 1) 100%);
+    transition: background 0.3s ease;
+}
+
+.navbar-brand {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-toggler {
+    border-color: #fff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' stroke='white' stroke-width='2'%3E%3Cline x1='4' y1='7' x2='26' y2='7'/%3E%3Cline x1='4' y1='15' x2='26' y2='15'/%3E%3Cline x1='4' y1='23' x2='26' y2='23'/%3E%3C/svg%3E");
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important; /* Color de texto del enlace */
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 20px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8) !important; /* Color al pasar el mouse */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8); /* Línea abajo del enlace */
+}
+
+.collapse {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        background: rgba(255, 183, 77, 0.9); /* Color de fondo en móvil */
+    }
+
+    .navbar-nav {
+        text-align: center; /* Centramos los enlaces */
+    }
+}
