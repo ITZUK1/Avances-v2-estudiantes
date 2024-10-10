@@ -1,0 +1,12 @@
+ /* Estilos CSS para centrar el formulario tanto vertical como horizontalmente */
+ body,
+ html {
+     height: 100%;
+ }
+ .form-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100%;
+     background-color: #f8f9fa; /* Color de fondo suave */
+ }

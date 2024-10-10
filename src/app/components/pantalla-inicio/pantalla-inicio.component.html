@@ -3,45 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Datos del Profesor</title>
-    <style>
-        /* Aquí puedes agregar tus estilos CSS para personalizar la apariencia */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        form {
-            width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Formulario Centrado</title>
 </head>
 <body>
-    <h1>Ingreso de Datos del Profesor</h1>
-    <form>
-        <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" name="nombre" required>
 
-        <label for="licenciatura">Licenciatura:</label>
-        <input type="text" id="licenciatura" name="licenciatura" required>
-
-        <label for="clases">Clases que dicta (separadas por comas):</label>
-        <textarea id="clases" name="clases" rows="4" required></textarea>
-
-        <button type="submit">Guardar</button>
+<div class="form-container">
+    <form class="w-50">
+        <h2 class="text-center mb-4">Verificacion Tipo Persona</h2>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder=" " required aria-describedby="emailHelp">
+            <label for="floatingInput">Email address</label>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder=" " required aria-describedby="passwordHelp">
+            <label for="floatingPassword">ID</label>
+            <div id="passwordHelp" class="form-text">Your ID must be 10 characters long.</div>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <a href="#" class="link-secondary">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
+</div>
+
 </body>
-</html> 
+</html>
