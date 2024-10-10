@@ -1,6 +1,6 @@
 /* Estilo para la barra de navegación */
 .navbar {
-    background: linear-gradient(90deg, rgba(255, 183, 77, 1) 0%, rgba(255, 107, 107, 1) 100%);
+    background: linear-gradient(90deg, rgb(45, 44, 48) 0%, rgb(83, 85, 241) 100%);
     transition: background 0.3s ease;
 }
 
