@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso de Datos del Profesor</title>
+    <style>
+        /* Aquí puedes agregar tus estilos CSS para personalizar la apariencia */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        form {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ingreso de Datos del Profesor</h1>
+    <form>
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="licenciatura">Licenciatura:</label>
+        <input type="text" id="licenciatura" name="licenciatura" required>
+
+        <label for="clases">Clases que dicta (separadas por comas):</label>
+        <textarea id="clases" name="clases" rows="4" required></textarea>
+
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html> 
