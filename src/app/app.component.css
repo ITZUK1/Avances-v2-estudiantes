@@ -16,9 +16,6 @@
     border-color: #fff;
 }
 
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30' stroke='white' stroke-width='2'%3E%3Cline x1='4' y1='7' x2='26' y2='7'/%3E%3Cline x1='4' y1='15' x2='26' y2='15'/%3E%3Cline x1='4' y1='23' x2='26' y2='23'/%3E%3C/svg%3E");
-}
 
 .navbar-nav .nav-link {
     color: #fff !important; /* Color de texto del enlace */
@@ -30,7 +27,7 @@
 
 .navbar-nav .nav-link:hover {
     color: rgba(255, 255, 255, 0.8) !important; /* Color al pasar el mouse */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.8); /* Línea abajo del enlace */
+    border-bottom: 2px solid rgb(0, 183, 255); /* Línea abajo del enlace */
 }
 
 .collapse {

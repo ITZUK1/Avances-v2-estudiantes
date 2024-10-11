@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'Pantalla-estudiante',component:PantallaEstudianteComponent},
   {path: 'Materias',component:MateriasComponent},
   {path: 'Tabla',component:TablaComponent},
+  {path:'**', redirectTo:'pantalla-inicio'},
 ];
 
 @NgModule({
