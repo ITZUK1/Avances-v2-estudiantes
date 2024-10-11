@@ -1,0 +1,65 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+
+/* Estilos del perfil */
+.perfil {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.info-basica {
+    text-align: center;
+}
+
+
+
+h2 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+.boton-estado {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para secciones */
+.datos-adicionales, .habilidades, .proyectos {
+    margin-top: 30px;
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.foto-perfil {
+    border: 3px solid #ff0000;
+    border-radius: 700000%;
+    width: 20000px;
+    height: 200000px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
