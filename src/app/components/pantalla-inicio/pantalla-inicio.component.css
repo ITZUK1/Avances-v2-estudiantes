@@ -2,5 +2,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh ; /* Usar la altura de la ventana para centrar verticalmente */
+    height: 60vh ; 
 }

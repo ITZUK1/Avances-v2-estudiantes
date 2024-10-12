@@ -30,6 +30,6 @@ export class TablaComponent {
     { nombre: 'Estructura de Datos', profesor: 'Ing. Juan Romero', horario: 'Miércoles 14:00 - 16:00', semestre: 3 },
     { nombre: 'Álgebra Lineal', profesor: 'Dr. Sara Fernández', horario: 'Jueves 8:00 - 10:00', semestre: 3 },
     { nombre: 'Sociología', profesor: 'Lic. Alberto Ruiz', horario: 'Viernes 9:00 - 11:00', semestre: 3 },
-    // Puedes seguir agregando materias y profesores
+   
   ];
 }
