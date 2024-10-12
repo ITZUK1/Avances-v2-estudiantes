@@ -1,0 +1,15 @@
+.card {
+    /* Optional: Set a minimum height for the cards */
+    min-height: 250px; /* Esto asegura que todas las tarjetas tengan una altura mínima */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espacia el contenido en la tarjeta */
+}
+
+/* Agregar algo de padding al contenedor para estética */
+.container {
+    padding: 20px; /* Espacio adicional alrededor de las tarjetas */
+}

@@ -1,1 +1,15 @@
-<p>materias works!</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let materia of materias">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ materia.nombre }}</h5>
+          <p class="card-text">Profesor: {{ materia.profesor }}</p>
+          <p class="card-text">Horario: {{ materia.horario }}</p>
+          <p class="card-text">Semestre: {{ materia.semestre }}</p>
+          <button class="btn btn-primary">Iniciar Clase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
