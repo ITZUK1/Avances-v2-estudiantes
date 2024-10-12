@@ -7,10 +7,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { TablaComponent } from './components/tabla/tabla.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TablaComponent
     
   ],
   imports: [
