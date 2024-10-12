@@ -8,11 +8,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { MateriasComponent } from './components/materias/materias.component';
+import { TablaComponent } from './components/tabla/tabla.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MateriasComponent
+    MateriasComponent,
+    TablaComponent
    
     
   ],
@@ -23,7 +25,7 @@ import { MateriasComponent } from './components/materias/materias.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
