@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Perfil de Estudiante</title>
-</head>
-<body>
-    <div class="perfil">
-        <div class="info-basica">
-            <img src="/src/assets/perfil.png" alt="Foto de perfil" class="foto-perfil">
-            <h2>Nombre Completo</h2>
-            <p><strong>Fecha de Nacimiento:</strong> <span id="fecha-nacimiento">01/01/2000</span></p>
-            <p><strong>Teléfono:</strong> <span id="telefono">(123) 456-7890</span></p>
-            <button class="boton-estado" id="boton-estado">Activo</button>
-        </div>
-
-        <div class="datos-adicionales">
-            <h3>Datos Adicionales</h3>
-            <ul>
-                <li><strong>Correo Electrónico:</strong> correoejemplo.com</li>
-                <li><strong>Carrera:</strong> Ingeniería en Sistemas</li>
-                <li><strong>Intereses:</strong> Programación, videojuegos, música</li>
-            </ul>
-        </div>
-
-        <div class="habilidades">
-            <h3>Habilidades</h3>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-            </ul>
-        </div>
-
-        <div class="proyectos">
-            <h3>Proyectos</h3>
-            <ul>
-                <li><a href="#">Proyecto 1</a></li>
-                <li><a href="#">Proyecto 2</a></li>
-            </ul>
-        </div>
+<div class="profile-container">
+    <h1>Perfil de Estudiante</h1>
+    
+    <div class="profile-photo">
+      <img [src]="avatarURL" alt="Foto de perfil" />
     </div>
-</body>
-</html>
+  
+    <input type="file" (change)="onImageChange($event)" accept="image/*">
+    
+    <div class="profile-info">
+      <label>Nombre: </label> <span>{{ studentName }}</span><br>
+      <label>ID: </label> <span>{{ studentId }}</span><br>
+      <label>Fecha: </label> <span>{{ date }}</span><br>
+      <label>Teléfono: </label> <span>{{ phone }}</span><br>
+    </div>
+  
+    <button (click)="checkOnlineStatus()">¿Estoy en línea?</button>
+   
+  </div>
+  
