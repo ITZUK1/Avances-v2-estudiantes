@@ -8,7 +8,6 @@ import { PantallaEstudianteComponent } from './pantalla-estudiante/pantalla-estu
 
 @NgModule({
   declarations: [
-    PantallaInicioComponent,
     pantallaProfesorComponent,
     PantallaEstudianteComponent,
    

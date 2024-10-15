@@ -1,25 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { MateriasComponent } from './components/materias/materias.component';
 import { TablaComponent } from './components/tabla/tabla.component';
-import { HttpClientModule } from '@angular/common/http';
+import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-inicio.component';  // Asegúrate de importar tu componente
 
 @NgModule({
   declarations: [
     AppComponent,
     MateriasComponent,
     TablaComponent,
-    
-    
-   
-    
+    PantallaInicioComponent // Asegúrate de declarar aquí tu componente que utiliza formularios
   ],
   imports: [
     BrowserModule,
@@ -28,7 +24,6 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    CommonModule,
     HttpClientModule
   ],
   providers: [],
