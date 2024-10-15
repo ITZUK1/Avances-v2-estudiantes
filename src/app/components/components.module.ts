@@ -11,6 +11,8 @@ import { PantallaEstudianteComponent } from './pantalla-estudiante/pantalla-estu
     PantallaInicioComponent,
     pantallaProfesorComponent,
     PantallaEstudianteComponent,
+   
+    
     
   ],
   imports: [

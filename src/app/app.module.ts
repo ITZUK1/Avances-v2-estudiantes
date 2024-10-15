@@ -15,7 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     MateriasComponent,
-    TablaComponent
+    TablaComponent,
+    
+    
    
     
   ],
