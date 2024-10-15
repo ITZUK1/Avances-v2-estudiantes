@@ -23,6 +23,9 @@
     "@ng-bootstrap/ng-bootstrap": "^14.2.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mssql": "^11.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

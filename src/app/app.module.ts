@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { MateriasComponent } from './components/materias/materias.component';
 import { TablaComponent } from './components/tabla/tabla.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TablaComponent } from './components/tabla/tabla.component';
     FormsModule,
     BrowserAnimationsModule,
     CommonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
