@@ -1,41 +1,44 @@
 .profile-container {
-    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px; /* Ajusta el ancho según tus necesidades */
+    margin: 20px auto;
+    border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    max-width: 400px;
-    margin: auto;
+    border-radius: 5px;
 }
 
 .profile-photo {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
     margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
+    border-radius: 50%; /* Para una foto circular */
 }
 
 .profile-photo img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que la imagen se ajuste al contenedor */
 }
 
-button {
-    padding: 10px 15px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
+.profile-info {
+    text-align: left; /* Alinea el texto a la izquierda */
 }
 
-button:hover {
-    background-color: #0056b3;
+.profile-info table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.status {
-    margin-top: 10px;
+.profile-info td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.profile-info td:first-child {
+    text-align: right; /* Alinea el label a la derecha */
     font-weight: bold;
 }
 
@@ -45,4 +48,41 @@ button:hover {
 
 .offline {
     color: red;
+}
+.file-upload-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin-bottom: 20px; /* Espacio entre el selector y la información */
+}
+
+.custom-file-upload {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Color verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* Indica que es un botón clicable */
+    transition: background-color 0.3s ease; /* Transición suave al hover */
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049; /* Color verde más oscuro al hover */
+}
+
+#fileInput {
+    display: none; /* Oculta el input predeterminado */
+}
+
+.custom-file-upload + #fileInput { /* Selecciona el input oculto después del botón */
+    display: none;
+}
+.custom-file-upload:hover + #fileInput{
+    display:none;
+}
+/*Ajustar para que se vea bien en todos los dispositivos*/
+@media (max-width: 767px) {
+    .file-upload-container {
+        flex-direction: column; /* Apila verticalmente en pantallas pequeñas */
+        align-items: center;
+    }
 }

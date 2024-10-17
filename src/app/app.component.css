@@ -2,8 +2,8 @@
 .navbar {
     background: linear-gradient(90deg, rgb(45, 44, 48) 0%, rgb(83, 85, 241) 100%);
     transition: background 0.3s ease;
-}
-
+    margin-bottom: 20px; /* Ajusta el valor 20px según tus necesidades */
+  }
 .navbar-brand {
     font-family: 'Arial Black', sans-serif;
     font-size: 20px;

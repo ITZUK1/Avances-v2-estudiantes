@@ -10,6 +10,8 @@ import { MateriasComponent } from './components/materias/materias.component';
 import { TablaComponent } from './components/tabla/tabla.component';
 import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-inicio.component';
 import { pantallProfesorComponent } from './components/pantalla-profesor/pantalla-profesor.component';
+import { PantallaEstudianteComponent } from './components/pantalla-estudiante/pantalla-estudiante.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { pantallProfesorComponent } from './components/pantalla-profesor/pantall
     TablaComponent,
     PantallaInicioComponent,
     pantallProfesorComponent,
+    PantallaEstudianteComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { pantallProfesorComponent } from './components/pantalla-profesor/pantall
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

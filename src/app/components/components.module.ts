@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { pantallaProfesorComponent } from './pantalla-profesor/pantalla-profesor.component';
-import { PantallaEstudianteComponent } from './pantalla-estudiante/pantalla-estudiante.component';
+import { pantallProfesorComponent } from './pantalla-profesor/pantalla-profesor.component';
 
 
 
 @NgModule({
   declarations: [
-    pantallaProfesorComponent,
-    PantallaEstudianteComponent,
+    pantallProfesorComponent,
    
     
     

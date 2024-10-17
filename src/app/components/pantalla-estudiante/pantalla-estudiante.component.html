@@ -1,20 +1,38 @@
 <div class="profile-container">
-    <h1>Perfil de Estudiante</h1>
-    
-    <div class="profile-photo">
-      <img [src]="avatarURL" alt="Foto de perfil" />
-    </div>
-  
-    <input type="file" (change)="onImageChange($event)" accept="image/*">
-    
-    <div class="profile-info">
-      <label>Nombre: </label> <span>{{ studentName }}</span><br>
-      <label>ID: </label> <span>{{ studentId }}</span><br>
-      <label>Fecha: </label> <span>{{ date }}</span><br>
-      <label>Teléfono: </label> <span>{{ phone }}</span><br>
-    </div>
-  
-    <button (click)="checkOnlineStatus()">¿Estoy en línea?</button>
-   
+
+  <div class="file-upload-container">
+    <button (click)="triggerFileInput()">FOTO</button>
+    <input type="file" (change)="onImageChange($event)" accept="image/*" #fileInput hidden>
   </div>
-  
+  <img *ngIf="avatarURL" [src]="avatarURL" alt="Avatar" width="100">
+ 
+
+
+  <div class="profile-info">
+    <table>
+      <tr>
+        <td><strong>Nombre:</strong></td>
+        <td>{{ studentName }}</td>
+      </tr>
+      <tr>
+        <td><strong>ID:</strong></td>
+        <td>{{ studentId }}</td>
+      </tr>
+      <tr>
+        <td><strong>Fecha:</strong></td>
+        <td>{{ date }}</td>
+      </tr>
+      <tr>
+        <td><strong>Teléfono:</strong></td>
+        <td>{{ phone }}</td>
+      </tr>
+      <tr>
+        <td><strong>Estado:</strong></td>
+        <td [ngClass]="{'online': isOnline, 'offline': !isOnline}">{{ isOnline ? 'En línea' : 'Fuera de línea' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <button (click)="checkOnlineStatus()">Actualizar Estado</button>
+
+</div>
