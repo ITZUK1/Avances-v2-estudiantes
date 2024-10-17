@@ -1,12 +1,11 @@
 <div class="profile-container">
-
   <div class="file-upload-container">
-    <button (click)="triggerFileInput()">FOTO</button>
+    <button (click)="triggerFileInput()">Cambiar Foto</button>
     <input type="file" (change)="onImageChange($event)" accept="image/*" #fileInput hidden>
   </div>
-  <img *ngIf="avatarURL" [src]="avatarURL" alt="Avatar" width="100">
- 
-
+  <div class="profile-photo">
+    <img *ngIf="avatarURL" [src]="avatarURL" alt="Avatar">
+  </div>
 
   <div class="profile-info">
     <table>
@@ -34,5 +33,24 @@
   </div>
 
   <button (click)="checkOnlineStatus()">Actualizar Estado</button>
+  <button (click)="showSubjectsPopup()">Ver Materias</button>
 
+  <div *ngIf="showPopup" class="popup">
+    <h2>Materias</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Materia</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects">
+          <td>{{ subject.name }}</td>
+          <td>{{ subject.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="closePopup()">Cerrar</button>
+  </div>
 </div>
