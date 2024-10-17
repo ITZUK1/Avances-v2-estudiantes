@@ -8,14 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MateriasComponent } from './components/materias/materias.component';
 import { TablaComponent } from './components/tabla/tabla.component';
-import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-inicio.component';  // Asegúrate de importar tu componente
+import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-inicio.component';
+import { pantallProfesorComponent } from './components/pantalla-profesor/pantalla-profesor.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MateriasComponent,
     TablaComponent,
-    PantallaInicioComponent // Asegúrate de declarar aquí tu componente que utiliza formularios
+    PantallaInicioComponent,
+    pantallProfesorComponent,
   ],
   imports: [
     BrowserModule,

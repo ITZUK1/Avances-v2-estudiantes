@@ -1,50 +1,54 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño de Tabla</title>
-</head>
 <body>
     <div class="container">
-        <header>
-            <h1>Bienvenido profesor</h1>
-            <p>Identificado: XXXXXX</p>
-        </header>
-        <div class="content">
-            <table>
-                <tr>
-                    <th>Materias</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-                <tr>
-                    <td>Agregar materia</td>
-                    <td>XXXXXXXXXX</td>
-                    <td><button>Agregar</button></td>
-                </tr>
-                <tr>
-                    <td>Eliminar materia</td>
-                    <td></td>
-                    <td><button>Eliminar</button></td>
-                </tr>
-                <tr>
-                    <td>Estudiante agendado</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Horario</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Semestre</td>
-                    <td>Año</td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+      <header>
+        <h1>Bienvenido profesor</h1>
+        <p>Identificado: XXXXXX</p>
+      </header>
+      <div class="content">
+        <form id="materiaForm">  <!-- Encapsulate form elements -->
+          <table>
+            <thead>
+              <tr>
+                <th>Materias</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" name="materia" id="nuevaMateria" placeholder="Nombre de la materia" required>
+                  <span class="error-message" id="error-materia"></span>
+                </td>
+                <td><span id="estadoNuevaMateria"></span></td>
+                <td>
+                    <button type="button" onclick="agregarMateria()">Agregar</button>
+                    <button type="button" onclick="agregarMateria()">eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <!-- Separate section for student and schedule info -->
+          <h2>Información del Estudiante y Horario</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td>Estudiante Agendado</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Horario</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Semestre</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>  <!-- Close the form -->
+      </div>
     </div>
-</body>
-</html>
+  </body>
+  
