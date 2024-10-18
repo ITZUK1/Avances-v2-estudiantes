@@ -7,9 +7,18 @@
           <p class="card-text">Profesor: {{ materia.profesor }}</p>
           <p class="card-text">Horario: {{ materia.horario }}</p>
           <p class="card-text">Semestre: {{ materia.semestre }}</p>
-          <button class="btn btn-primary">Iniciar Clase</button>
+          <button class="btn btn-primary" (click)="iniciarClase(materia)">Iniciar Clase</button>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Sección para mostrar la información de la clase iniciada -->
+  <div *ngIf="materiaSeleccionada">
+    <h2>Clase Iniciada:</h2>
+    <p>Materia: {{ materiaSeleccionada.nombre }}</p>
+    <p>Profesor: {{ materiaSeleccionada.profesor }}</p>
+    <p>Estado: {{ estadoClase }}</p>
+    <button class="btn btn-danger" (click)="terminarClase()">Terminar Clase</button>
   </div>
 </div>
