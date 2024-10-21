@@ -14,6 +14,15 @@ export class PantallaInicioComponent {
   studentErrorMessage: string | null = null;
   studentStatus: boolean = false; // Valor por defecto
 
+  showModal: boolean = false; 
+  fullName: string = '';
+  subject: string = '';
+  identification: string = '';
+
+  stopPropagation(event: Event) {
+    event.stopPropagation(); 
+  }
+
   onSubmitTeacher(): void {
     this.teacherErrorMessage = this.validateId(this.teacherId, 'profesor');
     if (!this.teacherErrorMessage) {
@@ -46,5 +55,30 @@ export class PantallaInicioComponent {
     }
     // Agregar más validaciones si es necesario (ej. longitud, formato)
     return null;
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  onSubmitRegistration() {
+    // Here you'll handle the submission of the registration form
+    console.log('Registration Data:', {
+      fullName: this.fullName,
+      subject: this.subject,
+      identification: this.identification
+    });
+
+    // Close the modal after successful registration
+    this.closeModal();
+
+    // Clear the input fields
+    this.fullName = '';
+    this.subject = '';
+    this.identification = '';
   }
 }

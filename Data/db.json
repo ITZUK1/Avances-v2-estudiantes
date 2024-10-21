@@ -42,5 +42,6 @@
           {"name": "descripcion", "type": "NVARCHAR", "length": 255, "notNull": true}
         ]
       }
+      
     ]
   }
