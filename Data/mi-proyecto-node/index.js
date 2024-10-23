@@ -7,41 +7,45 @@ app.use(bodyParser.json());
 
 // Ruta para crear un nuevo estudiante
 app.post('/estudiantes', (req, res) => {
-    const { nombre, fecha_nacimiento, telefono } = req.body;
-    const query = 'INSERT INTO Estudiantes (nombre, fecha_nacimiento, telefono) VALUES (?, ?, ?)';
-    db.query(query, [nombre, fecha_nacimiento, telefono], (err, result) => {
+    const { id_num, nombre, fecha_nacimiento, telefono } = req.body;
+    const query = 'INSERT INTO Estudiantes (id_num, nombre, fecha_nacimiento, telefono) VALUES (?, ?, ?, ?)';
+    db.query(query, [id_num, nombre, fecha_nacimiento, telefono], (err, result) => {
         if (err) throw err;
         res.send({ id: result.insertId, ...req.body });
     });
 });
 
+
 // Ruta para obtener todos los estudiantes
 app.get('/estudiantes', (req, res) => {
-    const query = 'SELECT * FROM Estudiantes';
+    const query = 'SELECT id, id_num, nombre, fecha_nacimiento, telefono, status FROM Estudiantes';
     db.query(query, (err, results) => {
         if (err) throw err;
         res.send(results);
     });
 });
 
+
 // Ruta para obtener un estudiante por ID
-app.get('/estudiantes/:id', (req, res) => {
-    const query = 'SELECT * FROM Estudiantes WHERE id = ?';
-    db.query(query, [req.params.id], (err, result) => {
+app.get('/estudiantes/id_num/:id_num', (req, res) => {
+    const query = 'SELECT * FROM Estudiantes WHERE id_num = ?';
+    db.query(query, [req.params.id_num], (err, result) => {
         if (err) throw err;
         res.send(result);
     });
 });
 
+
 // Ruta para actualizar un estudiante
 app.put('/estudiantes/:id', (req, res) => {
-    const { nombre, fecha_nacimiento, telefono, status } = req.body;
-    const query = 'UPDATE Estudiantes SET nombre = ?, fecha_nacimiento = ?, telefono = ?, status = ? WHERE id = ?';
-    db.query(query, [nombre, fecha_nacimiento, telefono, status, req.params.id], (err, result) => {
+    const { id_num, nombre, fecha_nacimiento, telefono, status } = req.body;
+    const query = 'UPDATE Estudiantes SET id_num = ?, nombre = ?, fecha_nacimiento = ?, telefono = ?, status = ? WHERE id = ?';
+    db.query(query, [id_num, nombre, fecha_nacimiento, telefono, status, req.params.id], (err, result) => {
         if (err) throw err;
         res.send({ message: 'Estudiante actualizado', id: req.params.id });
     });
 });
+
 
 // Ruta para eliminar un estudiante
 app.delete('/estudiantes/:id', (req, res) => {
