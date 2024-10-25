@@ -52,8 +52,7 @@ router.put('/materia/:id', (req, res) => {
     const { nombre, descripcion, semestre, fecha_inicio, status, } = req.body;
     const query = `
         UPDATE Materia
-        SET nombre = ?, descripcion = ?, semestre = ?, fecha_inicio = ?, status = ?, profesor_id = ?, curso_id = ?
-        WHERE id = ?
+        SET nombre = ?, descripcion = ?, semestre = ?, fecha_inicio = ?, status = ?
     `;
     db.query(query, [nombre, descripcion, semestre, fecha_inicio, status, , id], (err, result) => {
         if (err) {
