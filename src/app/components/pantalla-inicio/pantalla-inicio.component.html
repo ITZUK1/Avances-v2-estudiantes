@@ -3,6 +3,7 @@
 
   <div class="row mt-5">
     <div class="col-md-6">
+      <!-- Obtener información del profesor -->
       <h2>Obtener Información del Profesor</h2>
       <div class="form-group">
         <label for="teacherId">ID del Profesor:</label>
@@ -19,38 +20,12 @@
       </div>
       <div *ngIf="teacherErrorMessage" class="alert alert-danger mt-2">{{ teacherErrorMessage }}</div>
 
-
-      <h2>Registrar Profesor</h2>
-      <form (ngSubmit)="onSubmitNewTeacher()" class="mt-3">
-        <div class="form-group">
-          <label for="newTeacherId">Documento de Identidad:</label>
-          <input type="text" class="form-control" id="newTeacherId" [(ngModel)]="newTeacher.documento_identidad" name="newTeacherId" required>
-        </div>
-        <div class="form-group">
-          <label for="newTeacherName">Nombre:</label>
-          <input type="text" class="form-control" id="newTeacherName" [(ngModel)]="newTeacher.nombre" name="newTeacherName" required>
-        </div>
-        <div class="form-group">
-          <label for="newTeacherBirthDate">Fecha de Nacimiento:</label>
-          <input type="date" class="form-control" id="newTeacherBirthDate" [(ngModel)]="newTeacher.fecha_nacimiento" name="newTeacherBirthDate" required>
-        </div>
-        <div class="form-group">
-          <label for="newTeacherPhone">Teléfono:</label>
-          <input type="text" class="form-control" id="newTeacherPhone" [(ngModel)]="newTeacher.telefono" name="newTeacherPhone">
-        </div>
-        <div class="form-group">
-          <label for="newTeacherStatus">Estado:</label>
-          <select class="form-control" id="newTeacherStatus" [(ngModel)]="newTeacher.status" name="newTeacherStatus">
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary mt-2">Registrar Profesor</button>
-      </form>
+      <!-- Botón para abrir el modal de registro de profesor -->
+      <button type="button" class="btn btn-success mt-3" (click)="openTeacherModal()" data-bs-toggle="modal" data-bs-target="#teacherModal">Registrar Profesor</button>
     </div>
 
-
     <div class="col-md-6">
+      <!-- Obtener información del estudiante -->
       <h2>Obtener Información del Estudiante</h2>
       <div class="form-group">
         <label for="studentId">ID del Estudiante:</label>
@@ -67,34 +42,90 @@
       </div>
       <div *ngIf="studentErrorMessage" class="alert alert-danger mt-2">{{ studentErrorMessage }}</div>
 
+      <!-- Botón para abrir el modal de registro de estudiante -->
+      <button type="button" class="btn btn-success mt-3" (click)="openStudentModal()" data-bs-toggle="modal" data-bs-target="#studentModal">Registrar Estudiante</button>
+    </div>
+  </div>
 
-      <h2>Registrar Estudiante</h2>
-      <form (ngSubmit)="onSubmitNewStudent()" class="mt-3">
-        <div class="form-group">
-          <label for="newStudentId">Documento de Identidad:</label>
-          <input type="text" class="form-control" id="newStudentId" [(ngModel)]="newStudent.documento_identidad" name="newStudentId" required>
+  <!-- Modal de Registro de Profesor -->
+  <div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="teacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="teacherModalLabel">Registrar Profesor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="form-group">
-          <label for="newStudentName">Nombre:</label>
-          <input type="text" class="form-control" id="newStudentName" [(ngModel)]="newStudent.nombre" name="newStudentName" required>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmitNewTeacher()">
+            <!-- Campos del formulario para profesor -->
+            <div class="form-group">
+              <label for="newTeacherId">Documento de Identidad:</label>
+              <input type="text" class="form-control" id="newTeacherId" [(ngModel)]="newTeacher.documento_identidad" name="newTeacherId" required>
+            </div>
+            <div class="form-group">
+              <label for="newTeacherName">Nombre:</label>
+              <input type="text" class="form-control" id="newTeacherName" [(ngModel)]="newTeacher.nombre" name="newTeacherName" required>
+            </div>
+            <div class="form-group">
+              <label for="newTeacherBirthDate">Fecha de Nacimiento:</label>
+              <input type="date" class="form-control" id="newTeacherBirthDate" [(ngModel)]="newTeacher.fecha_nacimiento" name="newTeacherBirthDate" required>
+            </div>
+            <div class="form-group">
+              <label for="newTeacherPhone">Teléfono:</label>
+              <input type="text" class="form-control" id="newTeacherPhone" [(ngModel)]="newTeacher.telefono" name="newTeacherPhone">
+            </div>
+            <div class="form-group">
+              <label for="newTeacherStatus">Estado:</label>
+              <select class="form-control" id="newTeacherStatus" [(ngModel)]="newTeacher.status" name="newTeacherStatus">
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Registrar Profesor</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="newStudentBirthDate">Fecha de Nacimiento:</label>
-          <input type="date" class="form-control" id="newStudentBirthDate" [(ngModel)]="newStudent.fecha_nacimiento" name="newStudentBirthDate" required>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro de Estudiante -->
+  <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">Registrar Estudiante</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="form-group">
-          <label for="newStudentPhone">Teléfono:</label>
-          <input type="text" class="form-control" id="newStudentPhone" [(ngModel)]="newStudent.telefono" name="newStudentPhone">
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmitNewStudent()">
+            <!-- Campos del formulario para estudiante -->
+            <div class="form-group">
+              <label for="newStudentId">Documento de Identidad:</label>
+              <input type="text" class="form-control" id="newStudentId" [(ngModel)]="newStudent.documento_identidad" name="newStudentId" required>
+            </div>
+            <div class="form-group">
+              <label for="newStudentName">Nombre:</label>
+              <input type="text" class="form-control" id="newStudentName" [(ngModel)]="newStudent.nombre" name="newStudentName" required>
+            </div>
+            <div class="form-group">
+              <label for="newStudentBirthDate">Fecha de Nacimiento:</label>
+              <input type="date" class="form-control" id="newStudentBirthDate" [(ngModel)]="newStudent.fecha_nacimiento" name="newStudentBirthDate" required>
+            </div>
+            <div class="form-group">
+              <label for="newStudentPhone">Teléfono:</label>
+              <input type="text" class="form-control" id="newStudentPhone" [(ngModel)]="newStudent.telefono" name="newStudentPhone">
+            </div>
+            <div class="form-group">
+              <label for="newStudentStatus">Estado:</label>
+              <select class="form-control" id="newStudentStatus" [(ngModel)]="newStudent.status" name="newStudentStatus">
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Registrar Estudiante</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="newStudentStatus">Estado:</label>
-          <select class="form-control" id="newStudentStatus" [(ngModel)]="newStudent.status" name="newStudentStatus">
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary mt-2">Registrar Estudiante</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

@@ -10,15 +10,20 @@ export class PantallaInicioComponent {
   teacherId: string = '';
   teacherErrorMessage: string | null = null;
   teacher: any = null; // Para almacenar la información del profesor
+
+  studentId: string = '';
   studentErrorMessage: string | null = null;
   student: any = null; // Para almacenar la información del estudiante
-  studentId: string = '';
-  showModal: boolean = false;
-  newStudent: any = {}; //Objeto para almacenar la información del nuevo estudiante
-  newTeacher: any = {}; //Objeto para almacenar la información del nuevo profesor
+
+  newStudent: any = {}; // Objeto para almacenar la información del nuevo estudiante
+  newTeacher: any = {}; // Objeto para almacenar la información del nuevo profesor
+
+  showTeacherModal: boolean = false; // Para controlar la visibilidad del modal de profesor
+  showStudentModal: boolean = false; // Para controlar la visibilidad del modal de estudiante
 
   constructor(private http: HttpClient) {}
 
+  // Obtener información del profesor
   onSubmitTeacher(): void {
     this.teacherErrorMessage = this.validateId(this.teacherId, 'profesor');
     if (!this.teacherErrorMessage) {
@@ -35,12 +40,13 @@ export class PantallaInicioComponent {
     }
   }
 
+  // Obtener información del estudiante
   onSubmitStudent(): void {
     this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
     if (!this.studentErrorMessage) {
       this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
         (data: any) => {
-          this.student = data[0]; // asume que devuelve un array con un elemento
+          this.student = data[0]; // Asume que devuelve un array con un elemento
           console.log('Información del estudiante:', this.student);
         },
         (error) => {
@@ -51,30 +57,35 @@ export class PantallaInicioComponent {
     }
   }
 
-  //  Métodos para registrar nuevos estudiantes y profesores (POST)
-  onSubmitNewStudent(){
-    this.http.post('http://localhost:4000/api/estudiantes',this.newStudent).subscribe(
+  // Registrar nuevo estudiante
+  onSubmitNewStudent(): void {
+    this.http.post('http://localhost:4000/api/estudiantes', this.newStudent).subscribe(
       (response) => {
         console.log('Estudiante registrado:', response);
-        this.closeModal();
-        this.newStudent = {}; //Limpia el formulario
-      }, (error) => {
+        this.closeStudentModal();
+        this.newStudent = {}; // Limpia el formulario
+      },
+      (error) => {
         console.error('Error al registrar estudiante:', error);
       }
-    )
-  }
-  onSubmitNewTeacher(){
-    this.http.post('http://localhost:4000/api/profesor',this.newTeacher).subscribe(
-      (response) => {
-        console.log('Profesor registrado:', response);
-        this.closeModal();
-        this.newTeacher = {}; //Limpia el formulario
-      }, (error) => {
-        console.error('Error al registrar profesor:', error);
-      }
-    )
+    );
   }
 
+  // Registrar nuevo profesor
+  onSubmitNewTeacher(): void {
+    this.http.post('http://localhost:4000/api/profesor', this.newTeacher).subscribe(
+      (response) => {
+        console.log('Profesor registrado:', response);
+        this.closeTeacherModal();
+        this.newTeacher = {}; // Limpia el formulario
+      },
+      (error) => {
+        console.error('Error al registrar profesor:', error);
+      }
+    );
+  }
+
+  // Validación del ID
   validateId(id: string, type: 'profesor' | 'estudiante'): string | null {
     if (!id) {
       return `Por favor, ingresa un ID de ${type} válido.`;
@@ -82,6 +93,20 @@ export class PantallaInicioComponent {
     return null;
   }
 
-  openModal() { this.showModal = true; }
-  closeModal() { this.showModal = false; }
+  // Abrir y cerrar modales
+  openTeacherModal(): void {
+    this.showTeacherModal = true;
+  }
+
+  closeTeacherModal(): void {
+    this.showTeacherModal = false;
+  }
+
+  openStudentModal(): void {
+    this.showStudentModal = true;
+  }
+
+  closeStudentModal(): void {
+    this.showStudentModal = false;
+  }
 }
