@@ -9,108 +9,79 @@ import { HttpClient } from '@angular/common/http';
 export class PantallaInicioComponent {
   teacherId: string = '';
   teacherErrorMessage: string | null = null;
-  teacherStatus: boolean = false;
-
-  studentId: string = '';
+  teacher: any = null; // Para almacenar la información del profesor
   studentErrorMessage: string | null = null;
-  studentStatus: boolean = false;
-
+  student: any = null; // Para almacenar la información del estudiante
+  studentId: string = '';
   showModal: boolean = false;
-  fullName: string = '';
-  subject: string = '';
-  identification: string = '';
+  newStudent: any = {}; //Objeto para almacenar la información del nuevo estudiante
+  newTeacher: any = {}; //Objeto para almacenar la información del nuevo profesor
 
-  materias: any[] = []; // Array para almacenar las materias
-
-  constructor(private http: HttpClient) {
-    this.loadMaterias(); // Carga las materias al iniciar el componente
-  }
-
-
-  stopPropagation(event: Event) {
-    event.stopPropagation();
-  }
+  constructor(private http: HttpClient) {}
 
   onSubmitTeacher(): void {
     this.teacherErrorMessage = this.validateId(this.teacherId, 'profesor');
     if (!this.teacherErrorMessage) {
-      console.log('Información del profesor enviada:', { id: this.teacherId, status: this.teacherStatus });
-      this.teacherId = '';
+      this.http.get(`http://localhost:4000/api/profesor/documento_identidad/${this.teacherId}`).subscribe(
+        (data: any) => {
+          this.teacher = data;
+          console.log('Información del profesor:', this.teacher);
+        },
+        (error) => {
+          this.teacherErrorMessage = 'Error al obtener información del profesor';
+          console.error(error);
+        }
+      );
     }
   }
 
   onSubmitStudent(): void {
     this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
     if (!this.studentErrorMessage) {
-      console.log('Información del estudiante enviada:', { id: this.studentId, status: this.studentStatus });
-      this.studentId = '';
+      this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
+        (data: any) => {
+          this.student = data[0]; // asume que devuelve un array con un elemento
+          console.log('Información del estudiante:', this.student);
+        },
+        (error) => {
+          this.studentErrorMessage = 'Error al obtener información del estudiante';
+          console.error(error);
+        }
+      );
     }
   }
 
-  getStatusTextTeacher(): string {
-    return this.teacherStatus ? 'Online' : 'Offline';
+  //  Métodos para registrar nuevos estudiantes y profesores (POST)
+  onSubmitNewStudent(){
+    this.http.post('http://localhost:4000/api/estudiantes',this.newStudent).subscribe(
+      (response) => {
+        console.log('Estudiante registrado:', response);
+        this.closeModal();
+        this.newStudent = {}; //Limpia el formulario
+      }, (error) => {
+        console.error('Error al registrar estudiante:', error);
+      }
+    )
+  }
+  onSubmitNewTeacher(){
+    this.http.post('http://localhost:4000/api/profesor',this.newTeacher).subscribe(
+      (response) => {
+        console.log('Profesor registrado:', response);
+        this.closeModal();
+        this.newTeacher = {}; //Limpia el formulario
+      }, (error) => {
+        console.error('Error al registrar profesor:', error);
+      }
+    )
   }
 
-  getStatusTextStudent(): string {
-    return this.studentStatus ? 'Online' : 'Offline';
-  }
-
-  private validateId(id: string, type: 'profesor' | 'estudiante'): string | null {
+  validateId(id: string, type: 'profesor' | 'estudiante'): string | null {
     if (!id) {
       return `Por favor, ingresa un ID de ${type} válido.`;
     }
     return null;
   }
 
-  openModal() {
-    this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
-  onSubmitRegistration() {
-    const newTeacher = {
-      codigo_id: this.identification,
-      nombre: this.fullName,
-      fecha: new Date().toISOString().slice(0, 10),
-      telefono: '', // O maneja la lógica si es opcional.  Podrías agregar un campo de input en el formulario para el teléfono
-      status: true, // O false, según la lógica de tu aplicación
-      materia_id: this.getSubjectId(this.subject)
-    };
-
-    this.http.post('http://localhost:3000/tables', newTeacher).subscribe(
-      (response) => {
-        console.log('Profesor registrado:', response);
-        this.closeModal();
-        this.fullName = '';
-        this.subject = '';
-        this.identification = '';
-      },
-      (error) => {
-        console.error('Error al registrar profesor:', error);
-        // Maneja el error, por ejemplo, muestra un mensaje al usuario.
-      }
-    );
-  }
-
-  private getSubjectId(subjectName: string): number {
-    const materia = this.materias.find(m => m.nombre === subjectName);
-    return materia ? materia.id : -1;
-  }
-
-
-
-  private loadMaterias() {
-    this.http.get<any[]>('http://localhost:3000/tables').subscribe(
-      (materias) => {
-        this.materias = materias;
-      },
-      (error) => {
-        console.error('Error al cargar las materias:', error);
-        // Maneja el error, quizás mostrando un mensaje al usuario
-      }
-    );
-  }
+  openModal() { this.showModal = true; }
+  closeModal() { this.showModal = false; }
 }
