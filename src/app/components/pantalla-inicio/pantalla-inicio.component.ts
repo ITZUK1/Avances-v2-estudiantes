@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service'; // Importa el servicio
  
 @Component({
   selector: 'app-pantalla-inicio',
@@ -21,9 +23,11 @@ export class PantallaInicioComponent {
   showTeacherModal: boolean = false; // Para controlar la visibilidad del modal de profesor
   showStudentModal: boolean = false; // Para controlar la visibilidad del modal de estudiante
  
-  constructor(private http: HttpClient) {}
+ 
  
   // Obtener información del profesor
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {}
+
   onSubmitTeacher(): void {
     this.teacherErrorMessage = this.validateId(this.teacherId, 'profesor');
     if (!this.teacherErrorMessage) {
@@ -32,7 +36,9 @@ export class PantallaInicioComponent {
           this.http.get(`http://localhost:4000/api/profesor/documento_identidad/${this.teacherId}`).subscribe(
             (data: any) => {
               this.teacher = data;
-              console.log('Información del profesor:', this.teacher);
+              // Aquí guarda el tipo de usuario y redirige
+              this.userService.setUser({id: this.teacherId, userType: 'profesor'});
+              this.router.navigate(['/Pantalla-profesor']);
             },
             (error) => {
               this.teacherErrorMessage = 'Error al obtener información del profesor';
@@ -45,8 +51,7 @@ export class PantallaInicioComponent {
       });
     }
   }
- 
-  // Obtener información del estudiante
+
   onSubmitStudent(): void {
     this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
     if (!this.studentErrorMessage) {
@@ -54,8 +59,10 @@ export class PantallaInicioComponent {
         if (!exists) {
           this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
             (data: any) => {
-              this.student = data[0]; // Asume que devuelve un array con un elemento
-              console.log('Información del estudiante:', this.student);
+              this.student = data[0];
+              // Aquí guarda el tipo de usuario y redirige
+              this.userService.setUser({id: this.studentId, userType: 'estudiante'});
+              this.router.navigate(['/Pantalla-estudiante']);
             },
             (error) => {
               this.studentErrorMessage = 'Error al obtener información del estudiante';
