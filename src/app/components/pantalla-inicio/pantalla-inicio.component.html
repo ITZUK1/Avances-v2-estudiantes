@@ -1,12 +1,12 @@
 <div class="container">
-  <h1>Gestión de Estudiantes y Profesores</h1>
+  <h1>Iniciar sesion</h1>
 
   <div class="row mt-5">
     <div class="col-md-6">
       <!-- Obtener información del profesor -->
-      <h2>Obtener Información del Profesor</h2>
+      <h2>Identificacion del Profesor</h2>
       <div class="form-group">
-        <label for="teacherId">ID del Profesor:</label>
+        <label for="teacherId">Documento</label>
         <input type="text" class="form-control" id="teacherId" [(ngModel)]="teacherId" name="teacherId">
         <button type="button" class="btn btn-primary mt-2" (click)="onSubmitTeacher()">Iniciar sesion</button>
       </div>
@@ -26,14 +26,14 @@
 
     <div class="col-md-6">
       <!-- Obtener información del estudiante -->
-      <h2>Obtener Información del Estudiante</h2>
+      <h2>Identificacion del Estudiante</h2>
       <div class="form-group">
-        <label for="studentId">ID del Estudiante:</label>
+        <label for="studentId">Documento:</label>
         <input type="text" class="form-control" id="studentId" [(ngModel)]="studentId" name="studentId">
-        <button type="button" class="btn btn-primary mt-2" (click)="onSubmitStudent()">Obtener Estudiante</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="onSubmitStudent()">Ingresar</button>
       </div>
       <div *ngIf="student" class="mt-3">
-        <h3>Información del Estudiante:</h3>
+        <h3>Documento</h3>
         <p><strong>Nombre:</strong> {{ student.nombre }}</p>
         <p><strong>Documento de Identidad:</strong> {{ student.documento_identidad }}</p>
         <p><strong>Fecha de Nacimiento:</strong> {{ student.fecha_nacimiento | date }}</p>

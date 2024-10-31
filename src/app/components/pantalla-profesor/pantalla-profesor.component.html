@@ -1,54 +1,57 @@
-<body>
-    <div class="container">
-      <header>
-        <h1>Bienvenido profesor</h1>
-        <p>Identificado: XXXXXX</p>
-      </header>
-      <div class="content">
-        <form id="materiaForm">  <!-- Encapsulate form elements -->
-          <table>
-            <thead>
-              <tr>
-                <th>Materias</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="text" name="materia" id="nuevaMateria" placeholder="Nombre de la materia" required>
-                  <span class="error-message" id="error-materia"></span>
-                </td>
-                <td><span id="estadoNuevaMateria"></span></td>
-                <td>
-                    <button type="button" onclick="agregarMateria()">Agregar</button>
-                    <button type="button" onclick="agregarMateria()">eliminar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-  
-          <!-- Separate section for student and schedule info -->
-          <h2>Información del Estudiante y Horario</h2>
-          <table>
-            <tbody>
-              <tr>
-                <td>Estudiante Agendado</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Horario</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Semestre</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>  <!-- Close the form -->
+<div class="container">
+  <header>
+    <h1>Bienvenido, Profesor</h1>
+    <p>Complete el formulario para agregar una nueva materia</p>
+  </header>
+  <div class="content">
+    <form id="materiaForm">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Detalles de la Materia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label for="nombre">Nombre:</label></td>
+            <td><input type="text" [(ngModel)]="nuevaMateria.nombre" name="nombre" id="nombre" placeholder="Nombre de la materia" required></td>
+          </tr>
+          <tr>
+            <td><label for="descripcion">Descripción:</label></td>
+            <td><input type="text" [(ngModel)]="nuevaMateria.descripcion" name="descripcion" id="descripcion" placeholder="Descripción"></td>
+          </tr>
+          <tr>
+            <td><label for="semestre">Semestre:</label></td>
+            <td><input type="text" [(ngModel)]="nuevaMateria.semestre" name="semestre" id="semestre" placeholder="Semestre"></td>
+          </tr>
+          <tr>
+            <td><label for="fecha_inicio">Fecha de Inicio:</label></td>
+            <td><input type="date" [(ngModel)]="nuevaMateria.fecha_inicio" name="fecha_inicio" id="fecha_inicio"></td>
+          </tr>
+          <tr>
+            <td><label for="status">Estado:</label></td>
+            <td>
+              <select [(ngModel)]="nuevaMateria.status" name="status" id="status">
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="profesor_id">ID Profesor:</label></td>
+            <td><input type="number" [(ngModel)]="nuevaMateria.profesor_id" name="profesor_id" id="profesor_id" placeholder="ID del Profesor"></td>
+          </tr>
+          <tr>
+            <td><label for="curso_id">ID Curso:</label></td>
+            <td><input type="number" [(ngModel)]="nuevaMateria.curso_id" name="curso_id" id="curso_id" placeholder="ID del Curso"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="button-container">
+        <button type="button" (click)="agregarMateria()">Agregar Materia</button>
+        <span class="error-message" *ngIf="errorMateria">{{ errorMateria }}</span>
+        <span class="success-message" *ngIf="estadoNuevaMateria">{{ estadoNuevaMateria }}</span>
       </div>
-    </div>
-  </body>
-  
+    </form>
+  </div>
+</div>

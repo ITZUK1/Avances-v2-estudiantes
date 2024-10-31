@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Importar HttpClient
 
 @Component({
   selector: 'pantalla-profesor',
@@ -6,30 +7,36 @@ import { Component } from '@angular/core';
   styleUrls: ['./pantalla-profesor.component.css']
 })
 export class pantallProfesorComponent {
-  nuevaMateria: string = '';
+  nuevaMateria = {
+    nombre: '',
+    descripcion: '',
+    semestre: '',
+    fecha_inicio: '',
+    status: 'activo',
+    profesor_id: null,
+    curso_id: null
+  };
   estadoNuevaMateria: string = '';
   errorMateria: string = '';
-  estudianteAgendado: string = '';
-  horario: string = '';
-  semestre: string = 'Año';
+
+  constructor(private http: HttpClient) {}
 
   agregarMateria() {
     this.errorMateria = '';
-    if (this.nuevaMateria.trim() === "") {
+    if (this.nuevaMateria.nombre.trim() === '') {
       this.errorMateria = "Por favor, ingrese el nombre de la materia.";
       return;
     }
 
-    // Simulate adding the subject (replace with actual server call)
-    this.estadoNuevaMateria = "Agregada";
-    this.nuevaMateria = "";
-
-    
-
-  }
-
-  eliminarMateria() {
-    //Implement actual delete functionality (server interaction)
-    alert("Funcionalidad de eliminar materia aún no implementada.");
+    this.http.post('/api/materia', this.nuevaMateria)
+      .subscribe(
+        (response: any) => {
+          this.estadoNuevaMateria = "Materia agregada con éxito con ID: " + response.id;
+          this.nuevaMateria = { nombre: '', descripcion: '', semestre: '', fecha_inicio: '', status: 'activo', profesor_id: null, curso_id: null };
+        },
+        error => {
+          this.errorMateria = "Error al agregar la materia: " + error.error.error;
+        }
+      );
   }
 }

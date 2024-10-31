@@ -4,12 +4,14 @@ const db = require('../server'); // Importa la configuración de la base de dato
 
 // Crear una nueva materia
 router.post('/materia', (req, res) => {
-    const { nombre, descripcion, semestre, fecha_inicio, status, } = req.body;
+    const { nombre, descripcion, semestre, fecha_inicio, status } = req.body;
     const query = `
-       INSERT INTO materia (nombre, descripcion, semestre, fecha_inicio, status )
-          VALUES (?, ?, ?, ?, ?) 
+        INSERT INTO Materia (nombre, descripcion, semestre, fecha_inicio, status)
+        VALUES (?, ?, ?, ?, ?)
     `;
-    db.query(query, [nombre, descripcion, semestre, fecha_inicio, status,], (err, result) => {
+    // Si fecha_inicio es una cadena vacía, envía null
+    const fechaInicioValue = fecha_inicio ? fecha_inicio : null;
+    db.query(query, [nombre, descripcion, semestre, fechaInicioValue, status], (err, result) => {
         if (err) {
             console.error("Error al insertar en la base de datos:", err);
             return res.status(500).json({ error: "Error en la base de datos" });
@@ -17,6 +19,7 @@ router.post('/materia', (req, res) => {
         res.json({ id: result.insertId, ...req.body });
     });
 });
+
 
 // Obtener todas las materias
 router.get('/materia', (req, res) => {
@@ -49,12 +52,13 @@ router.get('/materia/:id', (req, res) => {
 // Actualizar una materia por id
 router.put('/materia/:id', (req, res) => {
     const { id } = req.params;
-    const { nombre, descripcion, semestre, fecha_inicio, status, } = req.body;
+    const { nombre, descripcion, semestre, fecha_inicio, status } = req.body;
     const query = `
         UPDATE Materia
         SET nombre = ?, descripcion = ?, semestre = ?, fecha_inicio = ?, status = ?
+        WHERE id = ?
     `;
-    db.query(query, [nombre, descripcion, semestre, fecha_inicio, status, , id], (err, result) => {
+    db.query(query, [nombre, descripcion, semestre, fecha_inicio, status, id], (err, result) => {
         if (err) {
             console.error("Error al actualizar la materia:", err);
             return res.status(500).json({ error: "Error en la base de datos" });
