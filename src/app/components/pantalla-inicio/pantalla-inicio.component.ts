@@ -31,69 +31,68 @@ export class PantallaInicioComponent {
   onSubmitTeacher(): void {
     this.teacherErrorMessage = this.validateId(this.teacherId, 'profesor');
     if (!this.teacherErrorMessage) {
-      this.checkIdExists(this.teacherId, 'profesor').then(exists => {
-        if (!exists) {
-          this.http.get(`http://localhost:4000/api/profesor/documento_identidad/${this.teacherId}`).subscribe(
+        // Verifica que el ID exista como profesor
+        this.http.get(`http://localhost:4000/api/profesor/documento_identidad/${this.teacherId}`).subscribe(
             (data: any) => {
-              this.teacher = data;
-              // Aquí guarda el tipo de usuario y redirige
-              this.userService.setUser({id: this.teacherId, userType: 'profesor'});
-              this.router.navigate(['/Pantalla-profesor']);
+                if (data) {
+                    this.teacher = data;
+                    this.userService.setUser({ id: this.teacherId, userType: 'profesor' });
+                    this.router.navigate(['/Pantalla-profesor']);
+                } else {
+                    this.teacherErrorMessage = 'El ID de profesor no existe en la base de datos.';
+                }
             },
             (error) => {
-              this.teacherErrorMessage = 'Error al obtener información del profesor';
-              console.error(error);
+                this.teacherErrorMessage = 'Error al obtener información del profesor o el ID no existe.';
+                console.error(error);
             }
-          );
-        } else {
-          this.teacherErrorMessage = 'El documento de identidad ya está registrado como estudiante.';
-        }
-      });
+        );
     }
-  }
+}
 
-  onSubmitStudent(): void {
+onSubmitStudent(): void {
     this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
     if (!this.studentErrorMessage) {
-      this.checkIdExists(this.studentId, 'estudiante').then(exists => {
-        if (!exists) {
-          this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
+        this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
             (data: any) => {
-              this.student = data[0];
-              // Aquí guarda el tipo de usuario y redirige
-              this.userService.setUser({id: this.studentId, userType: 'estudiante'});
-              this.router.navigate(['/Pantalla-estudiante']);
+                if (data && data.length > 0) { // Verifica si hay datos en la respuesta
+                    this.student = data[0];
+                    this.userService.setUser({ id: this.studentId, userType: 'estudiante' });
+                    this.router.navigate(['/Pantalla-estudiante']);
+                } else {
+                    this.studentErrorMessage = 'El ID de estudiante no existe en la base de datos.';
+                }
             },
             (error) => {
-              this.studentErrorMessage = 'Error al obtener información del estudiante';
-              console.error(error);
+                this.studentErrorMessage = 'Error al obtener información del estudiante o el ID no existe.';
+                console.error(error);
             }
-          );
-        } else {
-          this.studentErrorMessage = 'El documento de identidad ya está registrado como profesor.';
-        }
-      });
+        );
     }
-  }
+}
+
+
  
   // Función que verifica si el documento de identidad ya está en uso por un profesor/estudiante
   checkIdExists(id: string, type: 'profesor' | 'estudiante'): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const endpoint = type === 'profesor'
-        ? `http://localhost:4000/api/estudiantes/documento_identidad/${id}`
-        : `http://localhost:4000/api/profesor/documento_identidad/${id}`;
-      this.http.get(endpoint).subscribe(
-        (data: any) => {
-          // Si se obtiene algún dato, el ID ya está en uso
-          resolve(data && data.length > 0);
-        },
-        (error) => {
-          console.error('Error al verificar el ID:', error);
-          resolve(false); // En caso de error, consideramos que no está en uso.
-        }
-      );
+        const endpoint = type === 'profesor'
+            ? `http://localhost:4000/api/estudiantes/documento_identidad/${id}`
+            : `http://localhost:4000/api/profesores/documento_identidad/${id}`;
+
+        this.http.get(endpoint).subscribe(
+            (data: any) => {
+                // Verifica si data contiene información para determinar si el ID existe
+                resolve(data && data.length > 0);
+            },
+            (error) => {
+                console.error('Error al verificar el ID:', error);
+                resolve(false); // En caso de error, asume que el ID no está en uso
+            }
+        );
     });
-  }
+}
+
  
   // Registrar nuevo estudiante
   onSubmitNewStudent(): void {
