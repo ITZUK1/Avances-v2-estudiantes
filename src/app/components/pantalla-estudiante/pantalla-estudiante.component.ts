@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface Subject {
   name: string;
@@ -10,26 +11,42 @@ interface Subject {
   templateUrl: './pantalla-estudiante.component.html',
   styleUrls: ['./pantalla-estudiante.component.css']
 })
-export class PantallaEstudianteComponent {
-  studentName: string = 'Juan Pérez';
-  studentId: string = '123456';
-  date: string = '12/10/2024';
-  phone: string = '123-456-7890';
+export class PantallaEstudianteComponent implements OnInit {
+  studentName: string = '';
+  studentId: string = '';
+  date: string = '';
+  phone: string = '';
   isOnline: boolean = false;
-  avatarURL: string | ArrayBuffer | null = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiy7RvfhkOomVFRffPKb1pG60VDg24jOwVQQ&s'; // URL de imagen de ejemplo
+  
+  avatarURL: string | ArrayBuffer | null = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiy7RvfhkOomVFRffPKb1pG60VDg24jOwVQQ&s';
+  subjects: Subject[] = [];
+  showPopup: boolean = false;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  subjects: Subject[] = [
-    { name: 'Matemáticas', status: 'Aprobada' },
-    { name: 'Física', status: 'En curso' },
-    { name: 'Química', status: 'Reprobada' },
-    { name: 'Historia', status: 'Aprobada' },
-    { name: 'Literatura', status: 'En curso' },
-    { name: 'Biología', status: 'Aprobada' }
-  ];
+  constructor(private http: HttpClient) {}
 
-  showPopup: boolean = false;
+  ngOnInit(): void {
+    this.loadStudentData();
+  }
+
+  loadStudentData() {
+    const documento_identidad = '1022935491'; // Reemplazar con el ID de la sesión del estudiante
+
+    this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${documento_identidad}`)
+      .subscribe((data: any) => {
+        if (data.length > 0) {
+          const student = data[0];
+          this.studentName = student.nombre;
+          this.studentId = student.documento_identidad;
+          this.date = student.fecha_nacimiento;
+          this.phone = student.telefono;
+          this.isOnline = student.status === 'online';
+        }
+      }, (error) => {
+        console.error("Error al cargar datos del estudiante:", error);
+      });
+  }
 
   onImageChange(event: Event) {
     const target = event.target as HTMLInputElement;
