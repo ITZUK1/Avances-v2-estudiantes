@@ -34,18 +34,20 @@ router.get('/materia', (req, res) => {
 });
 
 // Obtener una materia por id
-router.get('/materia/:id', (req, res) => {
-    const { id } = req.params;
-    const query = 'SELECT * FROM Materia WHERE id = ?';
-    db.query(query, [id], (err, result) => {
+router.get('/materia', (req, res) => {
+    const query = 'SELECT * FROM Materia';
+    db.query(query, (err, results) => {
         if (err) {
-            console.error("Error al obtener la materia:", err);
+            console.error("Error al obtener datos de la base de datos:", err);
             return res.status(500).json({ error: "Error en la base de datos" });
         }
-        if (result.length === 0) {
-            return res.status(404).json({ message: "Materia no encontrada" });
-        }
-        res.json(result[0]);
+        // Mapear los resultados
+        const mappedSubjects = results.map(subject => ({
+            name: subject.nombre,
+            status: subject.status,
+            startDate: subject.fecha_inicio // Asegúrate de que esta propiedad se maneje correctamente
+        }));
+        res.json(mappedSubjects);
     });
 });
 

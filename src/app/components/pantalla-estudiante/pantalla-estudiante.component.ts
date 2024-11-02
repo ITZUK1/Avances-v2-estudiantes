@@ -2,8 +2,9 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 interface Subject {
-  name: string;
+  nombre: string;
   status: string;
+  startDate: string;
 }
 
 @Component({
@@ -17,7 +18,6 @@ export class PantallaEstudianteComponent implements OnInit {
   date: string = '';
   phone: string = '';
   isOnline: boolean = false;
-  
   avatarURL: string | ArrayBuffer | null = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiy7RvfhkOomVFRffPKb1pG60VDg24jOwVQQ&s';
   subjects: Subject[] = [];
   showPopup: boolean = false;
@@ -32,7 +32,6 @@ export class PantallaEstudianteComponent implements OnInit {
 
   loadStudentData() {
     const documento_identidad = '1022935491'; // Reemplazar con el ID de la sesión del estudiante
-
     this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${documento_identidad}`)
       .subscribe((data: any) => {
         if (data.length > 0) {
@@ -70,7 +69,17 @@ export class PantallaEstudianteComponent implements OnInit {
   }
 
   showSubjectsPopup() {
+    this.loadSubjects();
     this.showPopup = true;
+  }
+
+  loadSubjects() {
+    this.http.get<Subject[]>('http://localhost:4000/api/materia')
+      .subscribe((data) => {
+        this.subjects = data;
+      }, (error) => {
+        console.error("Error al cargar las materias:", error);
+      });
   }
 
   closePopup() {
