@@ -1,22 +1,21 @@
 <div class="table-container">
-    <h1>Materias y Profesores</h1>
-    <table>
+  <h1 class="table-title">Materias y Profesores</h1>
+  <table class="materias-table">
       <thead>
-        <tr>
-          <th>Materia</th>
-          <th>Profesor</th>
-          <th>Horario</th>
-          <th>Semestre</th>
-        </tr>
+          <tr>
+              <th>Materia</th>
+              <th>Profesor</th>
+              <th>Horario</th>
+              <th>Semestre</th>
+          </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let materia of materias">
-          <td>{{ materia.nombre }}</td>
-          <td>{{ materia.profesor }}</td>
-          <td>{{ materia.horario }}</td>
-          <td>{{ materia.semestre }}</td>
-        </tr>
+          <tr *ngFor="let materia of materias">
+              <td>{{ materia.nombre }}</td>
+              <td>{{ materia.profesor }}</td>
+              <td>{{ materia.horario }}</td>
+              <td>{{ materia.semestre }}</td>
+          </tr>
       </tbody>
-    </table>
-  </div>
-  
+  </table>
+</div>

@@ -1,24 +1,25 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-4" *ngFor="let materia of materias">
-      <div class="card mb-3">
+      <div class="card mb-3 card-hover">
         <div class="card-body">
           <h5 class="card-title">{{ materia.nombre }}</h5>
-          <p class="card-text">Profesor: {{ materia.profesor }}</p>
-          <p class="card-text">Horario: {{ materia.horario }}</p>
-          <p class="card-text">Semestre: {{ materia.semestre }}</p>
-          <button class="btn btn-primary" (click)="iniciarClase(materia)">Iniciar Clase</button>
+          <p class="card-text"><strong>Profesor:</strong> {{ materia.profesor }}</p>
+          <p class="card-text"><strong>Horario:</strong> {{ materia.horario }}</p>
+          <p class="card-text"><strong>Semestre:</strong> {{ materia.semestre }}</p>
+          <button class="btn btn-primary" [disabled]="materia.inProgress || cronometroActivo" (click)="iniciarClase(materia)">Iniciar Clase</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Sección para mostrar la información de la clase iniciada -->
-  <div *ngIf="materiaSeleccionada">
+  <div *ngIf="materiaSeleccionada" class="class-info mt-4">
     <h2>Clase Iniciada:</h2>
-    <p>Materia: {{ materiaSeleccionada.nombre }}</p>
-    <p>Profesor: {{ materiaSeleccionada.profesor }}</p>
-    <p>Estado: {{ estadoClase }}</p>
+    <p><strong>Materia:</strong> {{ materiaSeleccionada.nombre }}</p>
+    <p><strong>Profesor:</strong> {{ materiaSeleccionada.profesor }}</p>
+    <p *ngIf="cronometroActivo"><strong>Tiempo restante:</strong> {{ tiempoRestante | number:'2.0-0' }} segundos</p>
+    <p *ngIf="!cronometroActivo && estadoClase === 'Se terminó la clase'"><strong>Tiempo restante:</strong> 0 segundos</p>
+    <p><strong>Estado:</strong> {{ estadoClase }}</p>
     <button class="btn btn-danger" (click)="terminarClase()">Terminar Clase</button>
   </div>
 </div>

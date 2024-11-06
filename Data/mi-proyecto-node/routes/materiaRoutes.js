@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../server'); // Importa la configuración de la base de datos
+const db = require('../server'); 
 
-// Crear una nueva materia
 router.post('/materia', (req, res) => {
     const { nombre, descripcion, semestre, fecha_inicio, status } = req.body;
     const query = `
@@ -21,7 +20,6 @@ router.post('/materia', (req, res) => {
 });
 
 
-// Obtener todas las materias
 router.get('/materia', (req, res) => {
     const query = 'SELECT * FROM Materia';
     db.query(query, (err, results) => {
@@ -33,7 +31,6 @@ router.get('/materia', (req, res) => {
     });
 });
 
-// Obtener una materia por id
 router.get('/materia', (req, res) => {
     const query = 'SELECT * FROM Materia';
     db.query(query, (err, results) => {
@@ -41,17 +38,15 @@ router.get('/materia', (req, res) => {
             console.error("Error al obtener datos de la base de datos:", err);
             return res.status(500).json({ error: "Error en la base de datos" });
         }
-        // Mapear los resultados
         const mappedSubjects = results.map(subject => ({
             name: subject.nombre,
             status: subject.status,
-            startDate: subject.fecha_inicio // Asegúrate de que esta propiedad se maneje correctamente
+            startDate: subject.fecha_inicio 
         }));
         res.json(mappedSubjects);
     });
 });
 
-// Actualizar una materia por id
 router.put('/materia/:id', (req, res) => {
     const { id } = req.params;
     const { nombre, descripcion, semestre, fecha_inicio, status } = req.body;
@@ -72,7 +67,6 @@ router.put('/materia/:id', (req, res) => {
     });
 });
 
-// Eliminar una materia por id
 router.delete('/materia/:id', (req, res) => {
     const { id } = req.params;
     const query = 'DELETE FROM Materia WHERE id = ?';

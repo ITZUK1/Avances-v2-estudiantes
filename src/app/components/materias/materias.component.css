@@ -1,1 +1,48 @@
- 
+.container {
+    margin-top: 20px;
+}
+
+.card-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Suave subida y sombra */
+}
+
+.card-hover:hover {
+    transform: translateY(-5px); /* Efecto de subir al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más prominente al pasar el mouse */
+}
+
+.class-info {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.class-info:hover {
+    background-color: #e2e6ea;  /* Color más oscuro al pasar el mouse */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Aumenta el tamaño del título de la tarjeta */
+    font-weight: bold; /* Peso de la fuente más fuerte */
+    margin-bottom: 10px; /* Espaciado debajo del título */
+    color: #007BFF; /* Color del título */
+}
+
+.card-text {
+    margin-bottom: 5px; /* Espaciado entre las líneas de texto */
+}
+
+.btn-primary, .btn-danger {
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves en los botones */
+}
+
+.btn-primary:hover, .btn-danger:hover {
+    transform: translateY(-2px); /* Efecto de elevación en los botones al pasar el mouse */
+    background-color: #0056b3; /* Color más oscuro en hover de botón primario */
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Color más oscuro en hover de botón peligro */
+}

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../server'); // Importa la configuración de la base de datos
+const db = require('../server'); 
 
-// Ruta para crear un nuevo estudiante
+
 router.post('/estudiantes', (req, res) => {
     const { documento_identidad, nombre, fecha_nacimiento, telefono,status } = req.body;
     const query = 'INSERT INTO Estudiante (documento_identidad, nombre, fecha_nacimiento, telefono,status) VALUES (?, ?, ?, ?, ?)';
@@ -31,7 +31,7 @@ router.get('/estudiantes/documento_identidad/:documento_identidad', (req, res) =
             return res.status(500).json({ error: "Error en la base de datos" });
         }
         
-        // Envía el resultado en formato JSON
+       
         res.json(result);
     });
 });
@@ -82,4 +82,4 @@ router.delete('/estudiantes/documento_identidad/:documento_identidad', (req, res
 
 
 
-module.exports = router; // Exporta el router
+module.exports = router; 

@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../server'); // Importa la configuración de la base de datos
+const db = require('../server'); 
 
-// Crear un nuevo profesor
 router.post('/profesor', (req, res) => {
     const { documento_identidad, nombre, fecha_nacimiento, telefono, status } = req.body;
     const query = 'INSERT INTO profesor (documento_identidad, nombre, fecha_nacimiento, telefono, status) VALUES (?, ?, ?, ?, ?)';
@@ -15,7 +14,6 @@ router.post('/profesor', (req, res) => {
     });
 });
 
-// Obtener todos los profesores
 router.get('/profesor', (req, res) => {
     const query = 'SELECT * FROM profesor';
     db.query(query, (err, results) => {
@@ -27,7 +25,6 @@ router.get('/profesor', (req, res) => {
     });
 });
 
-// Obtener un profesor por documento_identidad
 router.get('/profesor/documento_identidad/:documento_identidad', (req, res) => {
     const { documento_identidad } = req.params;
     const query = 'SELECT * FROM profesor WHERE documento_identidad = ?';
@@ -43,7 +40,6 @@ router.get('/profesor/documento_identidad/:documento_identidad', (req, res) => {
     });
 });
 
-// Actualizar un profesor por documento_identidad
 router.put('/profesor/documento_identidad/:documento_identidad', (req, res) => {
     const { documento_identidad } = req.params;
     const { nombre, fecha_nacimiento, telefono, status } = req.body;
@@ -64,7 +60,6 @@ router.put('/profesor/documento_identidad/:documento_identidad', (req, res) => {
     });
 });
 
-// Eliminar un profesor por documento_identidad
 router.delete('/profesor/documento_identidad/:documento_identidad', (req, res) => {
     const { documento_identidad } = req.params;
     const query = 'DELETE FROM profesor WHERE documento_identidad = ?';
