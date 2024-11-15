@@ -31,7 +31,7 @@ export class PantallaEstudianteComponent implements OnInit {
   }
 
   loadStudentData() {
-    const documento_identidad = '1022935491'; // Reemplazar con el ID de la sesión del estudiante
+    const documento_identidad = '1022141469'; // Reemplazar con el ID de la sesión del estudiante
     this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${documento_identidad}`)
       .subscribe((data: any) => {
         if (data.length > 0) {
