@@ -12,6 +12,7 @@ import { PantallaInicioComponent } from './components/pantalla-inicio/pantalla-i
 import { pantallProfesorComponent } from './components/pantalla-profesor/pantalla-profesor.component';
 import { PantallaEstudianteComponent } from './components/pantalla-estudiante/pantalla-estudiante.component';
 import { CommonModule } from '@angular/common';
+import { MejoresProfesoresComponent } from './components/mejores-profesores/mejores-profesores.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CommonModule } from '@angular/common';
     TablaComponent,
     PantallaInicioComponent,
     pantallProfesorComponent,
-    PantallaEstudianteComponent
+    PantallaEstudianteComponent,
+    MejoresProfesoresComponent
   ],
   imports: [
     BrowserModule,
