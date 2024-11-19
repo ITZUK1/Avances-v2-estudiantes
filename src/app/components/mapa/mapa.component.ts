@@ -19,13 +19,19 @@ export class MapaComponent implements OnInit {
       zoom: 13
     });
 
-    // Agregar marcadores (puntos predeterminados de los colegios)
-    new mapboxgl.Marker()
-      .setLngLat([-74.1, 4.55]) // Coordenadas de un colegio en Usme
-      .addTo(map);
+    // Array con las coordenadas y nombres de los colegios
+    const colegios = [
+      { nombre: 'Colegio Fernando González Ochoa', lat: 4.502431958274059, lng: -74.10753276161769},
+      { nombre: 'Colegio Ofelia Uribe de Acosta', lat: 4.506121939230982, lng: -74.10302709230166 },
+      { nombre: 'Colegio El Chuniza', lat: 4.505968269697639, lng: -74.1111842171134 },
+    ]; 
 
-    new mapboxgl.Marker()
-      .setLngLat([-74.17, 4.56]) // Coordenadas de otro colegio en Usme
-      .addTo(map);
+    // Agregar marcadores para cada colegio
+    colegios.forEach(colegio => {
+      new mapboxgl.Marker()
+        .setLngLat([colegio.lng, colegio.lat]) // Coordenadas del colegio
+        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${colegio.nombre}</h3>`)) // Popup con el nombre del colegio
+        .addTo(map);
+    });
   }
 }
