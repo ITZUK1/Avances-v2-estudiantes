@@ -35,7 +35,6 @@ export class MateriasComponent implements OnInit {
         this.materias = JSON.parse(storedMaterias);
       } catch (error) {
         console.error("Error parsing materias from localStorage:", error);
-        // Handle the error appropriately, perhaps by using default materias
         this.materias = this.getDefaultMaterias();
       }
     } else {

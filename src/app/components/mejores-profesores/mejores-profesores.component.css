@@ -1,4 +1,4 @@
-/* General styles */
+
 :host {
     display: block;
     font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
     font-size: 1.2em;
   }
   
-  /* Mural container */
+
   .mural-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -34,8 +34,7 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-  
-  /* Professor card */
+
   .professor-card {
     background-color: white;
     border-radius: 8px;
