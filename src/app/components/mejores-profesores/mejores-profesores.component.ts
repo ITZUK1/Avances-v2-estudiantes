@@ -21,6 +21,21 @@ export class MejoresProfesoresComponent {
       nombre: 'Profesor Luis Gómez',
       descripcion: 'Docente apasionado por la tecnología y la informática.',
       imagen: 'assets/img/cucho3.jpg'
-    }
+    },
+    {
+      nombre: 'Profesora Luisa',
+      descripcion: 'Docente apasionado por la tecnología y la informática.',
+      imagen: 'assets/img/cucho4.jpg'
+    },
+    {
+      nombre: 'Profesor Luis Gómez',
+      descripcion: 'Docente apasionado por la tecnología y la informática.',
+      imagen: 'assets/img/cucho5.webp'
+    },
+    {
+      nombre: 'Profesor Luis Gómez',
+      descripcion: 'Docente apasionado por la tecnología y la informática.',
+      imagen: 'assets/img/cucho6.jpg'
+    },
   ];
 }
