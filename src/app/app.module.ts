@@ -13,6 +13,7 @@ import { pantallProfesorComponent } from './components/pantalla-profesor/pantall
 import { PantallaEstudianteComponent } from './components/pantalla-estudiante/pantalla-estudiante.component';
 import { CommonModule } from '@angular/common';
 import { MejoresProfesoresComponent } from './components/mejores-profesores/mejores-profesores.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MejoresProfesoresComponent } from './components/mejores-profesores/mejo
     PantallaInicioComponent,
     pantallProfesorComponent,
     PantallaEstudianteComponent,
-    MejoresProfesoresComponent
+    MejoresProfesoresComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,

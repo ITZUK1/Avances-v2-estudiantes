@@ -6,6 +6,7 @@ import { PantallaEstudianteComponent } from './components/pantalla-estudiante/pa
 import { TablaComponent } from './components/tabla/tabla.component';
 import { MateriasComponent } from './components/materias/materias.component';
 import { MejoresProfesoresComponent } from './components/mejores-profesores/mejores-profesores.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 const routes: Routes = [
   {path: 'Pantalla-inicio',component:PantallaInicioComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'Pantalla-estudiante',component:PantallaEstudianteComponent},
   {path: 'Materias',component:MateriasComponent},
   {path: 'Tabla',component:TablaComponent},
+  {path: 'mapa',component:MapaComponent},
   { path: 'Mejor-profesor', component: MejoresProfesoresComponent },
 
   {path:'**', redirectTo:'pantalla-inicio'},
