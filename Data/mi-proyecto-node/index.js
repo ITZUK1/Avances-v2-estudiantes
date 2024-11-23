@@ -16,7 +16,7 @@ app.use('/api', ProfesorRoutes);
 app.use('/api', materiaRoutes); 
 
 
-const PORT = 4000;
+const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
