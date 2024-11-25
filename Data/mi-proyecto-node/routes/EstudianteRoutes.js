@@ -80,6 +80,34 @@ router.delete('/estudiantes/documento_identidad/:documento_identidad', (req, res
     });
 });
 
+router.put('/estudiantes/estado/:documento_identidad', (req, res) => {
+    const { status } = req.body;
+    const { documento_identidad } = req.params;
+
+    if (status !== 'online' && status !== 'offline') {
+        return res.status(400).json({ message: "Estado inválido" });
+    }
+
+    const query = `
+        UPDATE estudiante
+        SET status = ?
+        WHERE documento_identidad = ?
+    `;
+    
+    db.query(query, [status, documento_identidad], (err, result) => {
+        if (err) {
+            console.error("Error ejecutando la consulta:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Estudiante no encontrado" });
+        }
+
+        res.json({ message: "Estado actualizado correctamente" });
+    });
+});
+
 
 
 module.exports = router; 

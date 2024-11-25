@@ -73,8 +73,19 @@ export class PantallaEstudianteComponent implements OnInit {
   }
 
   checkOnlineStatus() {
-    this.isOnline = !this.isOnline;
-  }
+  this.isOnline = !this.isOnline;
+
+  const status = this.isOnline ? 'online' : 'offline';
+  this.http.put(`http://localhost:4000/api/estudiantes/estado/${this.studentId}`, { status })
+    .subscribe(() => {
+      console.log('Estado actualizado correctamente en la base de datos.');
+    }, (error) => {
+      console.error('Error al actualizar el estado:', error);
+      // Revertir el cambio en caso de error
+      this.isOnline = !this.isOnline;
+    });
+}
+
 
   showSubjectsPopup() {
     this.loadSubjects();
