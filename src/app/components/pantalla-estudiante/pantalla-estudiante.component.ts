@@ -18,7 +18,7 @@ export class PantallaEstudianteComponent implements OnInit {
   studentId: string = '';
   date: string = '';
   phone: string = '';
-  isOnline: boolean = false;
+  isActivo: boolean = false;
   avatarURL: string | ArrayBuffer | null = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiy7RvfhkOomVFRffPKb1pG60VDg24jOwVQQ&s';
   subjects: Subject[] = [];
   showPopup: boolean = false;
@@ -44,7 +44,7 @@ export class PantallaEstudianteComponent implements OnInit {
               this.studentId = student.documento_identidad;
               this.date = student.fecha_nacimiento;
               this.phone = student.telefono;
-              this.isOnline = student.status === 'online';
+              this.isActivo = student.status === 'activo';
             }
           }, (error) => {
             console.error("Error al cargar datos del estudiante:", error);
@@ -73,16 +73,16 @@ export class PantallaEstudianteComponent implements OnInit {
   }
 
   checkOnlineStatus() {
-  this.isOnline = !this.isOnline;
+  this.isActivo = !this.isActivo;
 
-  const status = this.isOnline ? 'online' : 'offline';
+  const status = this.isActivo ? 'activo' : 'inactivo';
   this.http.put(`http://localhost:4000/api/estudiantes/estado/${this.studentId}`, { status })
     .subscribe(() => {
       console.log('Estado actualizado correctamente en la base de datos.');
     }, (error) => {
       console.error('Error al actualizar el estado:', error);
       // Revertir el cambio en caso de error
-      this.isOnline = !this.isOnline;
+      this.isActivo = !this.isActivo;
     });
 }
 

@@ -84,7 +84,7 @@ router.put('/estudiantes/estado/:documento_identidad', (req, res) => {
     const { status } = req.body;
     const { documento_identidad } = req.params;
 
-    if (status !== 'online' && status !== 'offline') {
+    if (status !== 'activo' && status !== 'inactivo') {
         return res.status(400).json({ message: "Estado inválido" });
     }
 

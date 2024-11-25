@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td><strong>Estado:</strong></td>
-        <td [ngClass]="{'online': isOnline, 'offline': !isOnline}">{{ isOnline ? 'En línea' : 'Fuera de línea' }}</td>
+        <td [ngClass]="{'activo': isActivo, 'inactivo': !isActivo}">{{ isActivo ? 'En línea' : 'Fuera de línea' }}</td>
       </tr>
     </table>
   </div>
