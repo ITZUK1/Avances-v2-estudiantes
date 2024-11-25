@@ -51,25 +51,26 @@ export class PantallaInicioComponent {
 }
 
 onSubmitStudent(): void {
-    this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
-    if (!this.studentErrorMessage) {
-        this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
-            (data: any) => {
-                if (data && data.length > 0) { // Verifica si hay datos en la respuesta
-                    this.student = data[0];
-                    this.userService.setUser({ id: this.studentId, userType: 'estudiante' });
-                    this.router.navigate(['/Pantalla-estudiante']);
-                } else {
-                    this.studentErrorMessage = 'El ID de estudiante no existe en la base de datos.';
-                }
-            },
-            (error) => {
-                this.studentErrorMessage = 'Error al obtener información del estudiante o el ID no existe.';
-                console.error(error);
-            }
-        );
-    }
+  this.studentErrorMessage = this.validateId(this.studentId, 'estudiante');
+  if (!this.studentErrorMessage) {
+    this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${this.studentId}`).subscribe(
+      (data: any) => {
+        if (data && data.length > 0) { // Verifica si hay datos en la respuesta
+          this.student = data[0];
+          this.userService.setUser({ id: this.studentId, userType: 'estudiante' }); // Establece el usuario
+          this.router.navigate(['/Pantalla-estudiante']); // Navega a la pantalla de estudiante
+        } else {
+          this.studentErrorMessage = 'El ID de estudiante no existe en la base de datos.';
+        }
+      },
+      (error) => {
+        this.studentErrorMessage = 'Error al obtener información del estudiante o el ID no existe.';
+        console.error(error);
+      }
+    );
+  }
 }
+
 
 
  

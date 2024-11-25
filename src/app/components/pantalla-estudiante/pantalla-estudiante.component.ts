@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 interface Subject {
   nombre: string;
@@ -24,27 +25,34 @@ export class PantallaEstudianteComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadStudentData();
   }
 
   loadStudentData() {
-    const documento_identidad = '1721707396'; // Reemplazar con el ID de la sesión del estudiante
-    this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${documento_identidad}`)
-      .subscribe((data: any) => {
-        if (data.length > 0) {
-          const student = data[0];
-          this.studentName = student.nombre;
-          this.studentId = student.documento_identidad;
-          this.date = student.fecha_nacimiento;
-          this.phone = student.telefono;
-          this.isOnline = student.status === 'online';
-        }
-      }, (error) => {
-        console.error("Error al cargar datos del estudiante:", error);
-      });
+    // Suscríbete al BehaviorSubject para obtener el usuario actual
+    this.userService.currentUser$.subscribe((user) => {
+      if (user?.userType === 'estudiante') {
+        const documento_identidad = user.id; // Obtén el documento del estudiante
+        this.http.get(`http://localhost:4000/api/estudiantes/documento_identidad/${documento_identidad}`)
+          .subscribe((data: any) => {
+            if (data.length > 0) {
+              const student = data[0];
+              this.studentName = student.nombre;
+              this.studentId = student.documento_identidad;
+              this.date = student.fecha_nacimiento;
+              this.phone = student.telefono;
+              this.isOnline = student.status === 'online';
+            }
+          }, (error) => {
+            console.error("Error al cargar datos del estudiante:", error);
+          });
+      } else {
+        console.error("No se encontró un estudiante en la sesión.");
+      }
+    });
   }
 
   onImageChange(event: Event) {
