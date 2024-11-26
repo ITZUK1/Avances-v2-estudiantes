@@ -1,9 +1,85 @@
-#map {
-    height: 600px; 
+/* Contenedor principal */
+#map-container {
+    position: relative;
+    height: 100vh;
     width: 100%;
-    border: 2px solid #011aff; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out; 
-    overflow: hidden; 
-}
+    overflow: hidden;
+  }
+  
+  /* Estilo del mapa */
+  #map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  /* Tarjeta flotante pequeña */
+  .floating-card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    width: 280px; /* Tamaño más compacto */
+    text-align: left;
+  }
+  
+  /* Título */
+  .title {
+    color: #011aff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Lista de colegios */
+  .colegio-list {
+    display: grid;
+    gap: 10px;
+  }
+  
+  /* Tarjetas de colegios */
+  .colegio-card {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .colegio-card:hover {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Información del colegio */
+  .colegio-info h3 {
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Botón */
+  .btn-ir {
+    background-color: #011aff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .btn-ir:hover {
+    background-color: #033bff;
+    transform: scale(1.05);
+  }
+  

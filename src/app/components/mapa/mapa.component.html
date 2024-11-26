@@ -1,1 +1,15 @@
-<div id="map" style="height: 4000px;"></div>
+<div id="map-container">
+    <div class="floating-card small-card">
+      <h2 class="title">Colegios</h2>
+      <div class="colegio-list">
+        <div class="colegio-card" *ngFor="let colegio of colegios">
+          <div class="colegio-info">
+            <h3>{{ colegio.nombre }}</h3>
+          </div>
+          <button class="btn-ir" (click)="irAColegio(colegio, $event)">Ir</button>
+        </div>
+      </div>
+    </div>
+    <div id="map"></div>
+  </div>
+  
