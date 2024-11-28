@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../server'); 
+const db = require('../server');
 
 // Crear una inasistencia utilizando el nombre del estudiante y el nombre de la materia
 router.post('/inasistencia', (req, res) => {
@@ -46,5 +46,96 @@ router.post('/inasistencia', (req, res) => {
     });
 });
 
-// Resto de los endpoints (GET, PUT, DELETE) se mantienen igual.
+// Obtener todas las inasistencias
+router.get('/inasistencias', (req, res) => {
+    const query = `
+        SELECT 
+            i.id, i.fecha, i.motivo,
+            e.nombre AS estudiante_nombre,
+            m.nombre AS materia_nombre
+        FROM Inasistencia i
+        JOIN Estudiante e ON i.estudiante_id = e.id
+        JOIN Materia m ON i.materia_id = m.id
+    `;
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al obtener las inasistencias:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        }
+        res.json(results);
+    });
+});
+
+// Obtener una inasistencia específica por su ID
+router.get('/inasistencia/:id', (req, res) => {
+    const { id } = req.params;
+    const query = `
+        SELECT 
+            i.id, i.fecha, i.motivo,
+            e.nombre AS estudiante_nombre,
+            m.nombre AS materia_nombre
+        FROM Inasistencia i
+        JOIN Estudiante e ON i.estudiante_id = e.id
+        JOIN Materia m ON i.materia_id = m.id
+        WHERE i.id = ?
+    `;
+    db.query(query, [id], (err, results) => {
+        if (err) {
+            console.error("Error al obtener la inasistencia:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: "Inasistencia no encontrada" });
+        }
+        res.json(results[0]);
+    });
+});
+
+// Actualizar una inasistencia
+router.put('/inasistencia/:id', (req, res) => {
+    const { id } = req.params;
+    const { fecha, motivo } = req.body;
+
+    // Verificar que los campos necesarios estén presentes
+    if (!fecha || !motivo) {
+        return res.status(400).json({ error: "Los campos 'fecha' y 'motivo' son obligatorios" });
+    }
+
+    // Actualizar la inasistencia en la base de datos
+    const query = `
+        UPDATE Inasistencia
+        SET fecha = ?, motivo = ?
+        WHERE id = ?
+    `;
+    db.query(query, [fecha, motivo, id], (err, result) => {
+        if (err) {
+            console.error("Error al actualizar la inasistencia:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Inasistencia no encontrada" });
+        }
+        res.json({ id, fecha, motivo, message: "Inasistencia actualizada con éxito" });
+    });
+});
+
+
+// Eliminar una inasistencia
+router.delete('/inasistencia/:id', (req, res) => {
+    const { id } = req.params;
+    const query = 'DELETE FROM Inasistencia WHERE id = ?';
+    db.query(query, [id], (err, result) => {
+        if (err) {
+            console.error("Error al eliminar la inasistencia:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Inasistencia no encontrada" });
+        }
+        res.json({ message: "Inasistencia eliminada con éxito" });
+    });
+});
+
+
+
 module.exports = router;
