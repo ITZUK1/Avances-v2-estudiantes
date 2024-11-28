@@ -23,8 +23,8 @@ export class pantallProfesorComponent {
   mostrarFormularioInasistencia: boolean = false;
   inasistencia = {
     fecha: '',
-    estudiante_id: null,
-    materia_id: null,
+    estudiante_nombre: '',  // Cambio aquí
+    materia_nombre: '',     // Cambio aquí
     motivo: ''
   };
 
@@ -53,16 +53,22 @@ export class pantallProfesorComponent {
   }
 
   agregarInasistencia() {
-    this.http.post('/api/inasistencia', this.inasistencia)
-      .subscribe(
-        (response: any) => {
-          alert("Inasistencia agregada con éxito!");
-          this.inasistencia = { fecha: '', estudiante_id: null, materia_id: null, motivo: '' };
-          this.toggleInasistenciaForm();  // Cierra el formulario después de agregar
-        },
-        error => {
-          alert("Error al agregar la inasistencia: " + error.error.error);
-        }
-      );
+    // Aquí se envían los nombres del estudiante y la materia
+    this.http.post('http://localhost:4000/api/inasistencia', {
+      fecha: this.inasistencia.fecha,
+      estudiante_nombre: this.inasistencia.estudiante_nombre,  // Usamos el nombre
+      materia_nombre: this.inasistencia.materia_nombre,        // Usamos el nombre
+      motivo: this.inasistencia.motivo
+    })
+    .subscribe(
+      (response: any) => {
+        alert("Inasistencia agregada con éxito!");
+        this.inasistencia = { fecha: '', estudiante_nombre: '', materia_nombre: '', motivo: '' };
+        this.toggleInasistenciaForm();  // Cierra el formulario después de agregar
+      },
+      error => {
+        alert("Error al agregar la inasistencia: " + error.error.error);
+      }
+    );
   }
 }

@@ -55,3 +55,9 @@ CREATE TABLE Inasistencia (
     FOREIGN KEY (estudiante_id) REFERENCES Estudiante(id) ON DELETE CASCADE,
     FOREIGN KEY (materia_id) REFERENCES Materia(id) ON DELETE CASCADE
 );
+
+-- Asegurarse de que el nombre del estudiante sea único
+ALTER TABLE Estudiante ADD UNIQUE (nombre);
+
+-- Asegurarse de que el nombre de la materia sea único
+ALTER TABLE Materia ADD UNIQUE (nombre);

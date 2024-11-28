@@ -3,7 +3,8 @@ const db = require('./server');
 const cors = require('cors');
 const estudianteRoutes = require('./routes/EstudianteRoutes'); 
 const ProfesorRoutes = require('./routes/ProfesorRoutes'); 
-const materiaRoutes = require('./routes/materiaRoutes'); 
+const materiaRoutes = require('./routes/materiaRoutes');
+const InasistenciaRoutes = require('./routes/InasistenciaRoute');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/api', estudianteRoutes); 
 app.use('/api', ProfesorRoutes); 
 app.use('/api', materiaRoutes); 
+app.use('/api', InasistenciaRoutes);
 
 
 const PORT = 4000;

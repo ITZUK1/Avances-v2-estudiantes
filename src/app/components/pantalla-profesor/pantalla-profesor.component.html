@@ -52,20 +52,20 @@
   <div *ngIf="mostrarFormularioInasistencia" class="modal">
     <div class="modal-content">
       <h2>Agregar Inasistencia</h2>
-      <form>
+      <form (ngSubmit)="agregarInasistencia()">
         <label for="fechaInasistencia">Fecha:</label>
         <input type="date" [(ngModel)]="inasistencia.fecha" id="fechaInasistencia" name="fechaInasistencia">
         
-        <label for="estudianteId">Estudiante:</label>
-        <input type="number" [(ngModel)]="inasistencia.estudiante_id" id="estudianteId" name="estudianteId" required>
+        <label for="estudianteNombre">Estudiante:</label>
+        <input type="text" [(ngModel)]="inasistencia.estudiante_nombre" id="estudianteNombre" name="estudianteNombre" required>
         
-        <label for="materiaId">Materia:</label>
-        <input type="number" [(ngModel)]="inasistencia.materia_id" id="materiaId" name="materiaId" required>
+        <label for="materiaNombre">Materia:</label>
+        <input type="text" [(ngModel)]="inasistencia.materia_nombre" id="materiaNombre" name="materiaNombre" required>
         
         <label for="motivo">Motivo:</label>
         <textarea [(ngModel)]="inasistencia.motivo" id="motivo" name="motivo"></textarea>
         
-        <button type="submit" (click)="agregarInasistencia()">Agregar Inasistencia</button>
+        <button type="submit">Agregar Inasistencia</button>
         <button type="button" (click)="toggleInasistenciaForm()">Cerrar</button>
       </form>
     </div>
