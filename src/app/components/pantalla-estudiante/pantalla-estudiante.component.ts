@@ -49,9 +49,7 @@ export class PantallaEstudianteComponent implements OnInit {
           }, (error) => {
             console.error("Error al cargar datos del estudiante:", error);
           });
-      } else {
-        console.error("No se encontró un estudiante en la sesión.");
-      }
+      } 
     });
   }
 

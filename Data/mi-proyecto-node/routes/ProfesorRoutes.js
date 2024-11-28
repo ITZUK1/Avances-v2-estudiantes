@@ -4,15 +4,31 @@ const db = require('../server');
 
 router.post('/profesor', (req, res) => {
     const { documento_identidad, nombre, fecha_nacimiento, telefono, status } = req.body;
-    const query = 'INSERT INTO profesor (documento_identidad, nombre, fecha_nacimiento, telefono, status) VALUES (?, ?, ?, ?, ?)';
-    db.query(query, [documento_identidad, nombre, fecha_nacimiento, telefono, status], (err, result) => {
+
+    // Verificar si el documento ya existe
+    const checkQuery = 'SELECT * FROM profesor WHERE documento_identidad = ?';
+    db.query(checkQuery, [documento_identidad], (err, result) => {
         if (err) {
-            console.error("Error al insertar en la base de datos:", err);
+            console.error("Error al verificar el documento:", err);
             return res.status(500).json({ error: "Error en la base de datos" });
         }
-        res.json({ id: result.insertId, ...req.body });
+        if (result.length > 0) {
+            // Documento ya existe
+            return res.status(400).json({ error: "El documento de identidad ya está registrado." });
+        }
+
+        // Insertar el nuevo profesor si el documento no existe
+        const insertQuery = 'INSERT INTO profesor (documento_identidad, nombre, fecha_nacimiento, telefono, status) VALUES (?, ?, ?, ?, ?)';
+        db.query(insertQuery, [documento_identidad, nombre, fecha_nacimiento, telefono, status], (err, result) => {
+            if (err) {
+                console.error("Error al insertar en la base de datos:", err);
+                return res.status(500).json({ error: "Error en la base de datos" });
+            }
+            res.json({ id: result.insertId, ...req.body });
+        });
     });
 });
+
 
 router.get('/profesor', (req, res) => {
     const query = 'SELECT * FROM profesor';
