@@ -41,9 +41,33 @@
       </table>
       <div class="button-container">
         <button type="button" (click)="agregarMateria()">Agregar Materia</button>
+        <button type="button" (click)="toggleInasistenciaForm()">Agregar Inasistencia</button>
         <span class="error-message" *ngIf="errorMateria">{{ errorMateria }}</span>
         <span class="success-message" *ngIf="estadoNuevaMateria">{{ estadoNuevaMateria }}</span>
       </div>
     </form>
+  </div>
+
+  <!-- Pantalla flotante para agregar inasistencia -->
+  <div *ngIf="mostrarFormularioInasistencia" class="modal">
+    <div class="modal-content">
+      <h2>Agregar Inasistencia</h2>
+      <form>
+        <label for="fechaInasistencia">Fecha:</label>
+        <input type="date" [(ngModel)]="inasistencia.fecha" id="fechaInasistencia" name="fechaInasistencia">
+        
+        <label for="estudianteId">Estudiante:</label>
+        <input type="number" [(ngModel)]="inasistencia.estudiante_id" id="estudianteId" name="estudianteId" required>
+        
+        <label for="materiaId">Materia:</label>
+        <input type="number" [(ngModel)]="inasistencia.materia_id" id="materiaId" name="materiaId" required>
+        
+        <label for="motivo">Motivo:</label>
+        <textarea [(ngModel)]="inasistencia.motivo" id="motivo" name="motivo"></textarea>
+        
+        <button type="submit" (click)="agregarInasistencia()">Agregar Inasistencia</button>
+        <button type="button" (click)="toggleInasistenciaForm()">Cerrar</button>
+      </form>
+    </div>
   </div>
 </div>

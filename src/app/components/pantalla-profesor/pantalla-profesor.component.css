@@ -62,7 +62,8 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select {
+select,
+textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #cccccc;
@@ -74,7 +75,8 @@ select {
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: none;
   border-color: #4CAF50;
   box-shadow: 0px 0px 4px rgba(76, 175, 80, 0.5);
@@ -83,6 +85,9 @@ select:focus {
 .button-container {
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacio entre los botones */
 }
 
 button {
@@ -94,10 +99,21 @@ button {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  min-width: 150px; /* Asegura que los botones sean lo suficientemente grandes */
 }
 
 button:hover {
   background-color: #45a049;
+}
+
+/* Botón de cerrar */
+button.close-btn {
+  background-color: #00a2ff; /* Azul para indicar cierre */
+  color: #ffffff;
+}
+
+button.close-btn:hover {
+  background-color: #e53935;
 }
 
 .error-message {
@@ -113,3 +129,55 @@ button:hover {
   font-size: 14px;
   margin-top: 10px;
 }
+
+/* Estilos para el modal de inasistencia */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  font-size: 14px;
+  color: #333333;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0px 0px 4px rgba(76, 175, 80, 0.5);
+}
+
+/* Estilos para los botones dentro del modal */
+.modal-content .button-container {
+  display: flex; /* Alinea los botones horizontalmente */
+  justify-content: space-between; /* Asegura que los botones estén separados */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px; /* Espacio superior para separar los botones del formulario */
+}
+
+.modal-content button {
+  margin: 5px; /* Añadir margen alrededor de cada botón */
+  width: auto; /* Asegura que los botones tengan su tamaño automático */
+  flex-grow: 1; /* Permite que los botones crezcan igualmente para ocupar el espacio disponible */
+}
+
+

@@ -44,3 +44,14 @@ CREATE TABLE Materia (
     curso_id INT,  -- Relación con Curso
     FOREIGN KEY (profesor_id) REFERENCES Profesor(id) ON DELETE SET NULL,
     FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL);
+    
+    -- Creación de la tabla Inasistencia
+CREATE TABLE Inasistencia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,  -- Fecha de la inasistencia
+    estudiante_id INT NOT NULL,  -- Relación con Estudiante
+    materia_id INT NOT NULL,  -- Relación con Materia
+    motivo TEXT,  -- Opcional: Descripción del motivo de la inasistencia
+    FOREIGN KEY (estudiante_id) REFERENCES Estudiante(id) ON DELETE CASCADE,
+    FOREIGN KEY (materia_id) REFERENCES Materia(id) ON DELETE CASCADE
+);
