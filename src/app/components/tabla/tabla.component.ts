@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 interface Materia {
   nombre: string;
   profesor: string;
@@ -14,7 +13,7 @@ interface Materia {
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent {
- materias: Materia[] = [
+  materias: Materia[] = [
     { nombre: 'Matemáticas I', profesor: 'Dr. Juan Pérez', horario: 'Lunes 8:00 - 10:00', semestre: 1 },
     { nombre: 'Programación I', profesor: 'Ing. María López', horario: 'Martes 10:00 - 12:00', semestre: 2 },
     { nombre: 'Física I', profesor: 'Dr. Carlos Gómez', horario: 'Miércoles 14:00 - 16:00', semestre: 2 },
@@ -30,6 +29,5 @@ export class TablaComponent {
     { nombre: 'Estructura de Datos', profesor: 'Ing. Juan Romero', horario: 'Miércoles 14:00 - 16:00', semestre: 3 },
     { nombre: 'Álgebra Lineal', profesor: 'Dr. Sara Fernández', horario: 'Jueves 8:00 - 10:00', semestre: 3 },
     { nombre: 'Sociología', profesor: 'Lic. Alberto Ruiz', horario: 'Viernes 9:00 - 11:00', semestre: 3 },
-   
   ];
 }

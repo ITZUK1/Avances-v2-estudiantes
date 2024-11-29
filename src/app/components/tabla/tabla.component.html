@@ -1,21 +1,18 @@
-<div class="table-container">
-  <h1 class="table-title">Materias y Profesores</h1>
-  <table class="materias-table">
-      <thead>
-          <tr>
-              <th>Materia</th>
-              <th>Profesor</th>
-              <th>Horario</th>
-              <th>Semestre</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let materia of materias">
-              <td>{{ materia.nombre }}</td>
-              <td>{{ materia.profesor }}</td>
-              <td>{{ materia.horario }}</td>
-              <td>{{ materia.semestre }}</td>
-          </tr>
-      </tbody>
-  </table>
-</div>
+<div class="advanced-container">
+    <h1 class="advanced-title">Materias y Profesores</h1>
+    <div class="card-grid">
+      <div class="advanced-card" *ngFor="let materia of materias">
+        <div class="card-content">
+          <div class="card-header">
+            <h2>{{ materia.nombre }}</h2>
+          </div>
+          <div class="card-body">
+            <p><strong>👨‍🏫 Profesor:</strong> {{ materia.profesor }}</p>
+            <p><strong>🕒 Horario:</strong> {{ materia.horario }}</p>
+            <p><strong>📚 Semestre:</strong> {{ materia.semestre }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
