@@ -8,12 +8,12 @@ import { Component } from '@angular/core';
 export class MejoresProfesoresComponent {
   profesores = [
     {
-      nombre: 'Profesora lucia ',
-      descripcion: 'Experto en matemáticas y física con más de 10 años de experiencia.',
-      imagen: 'assets/img/cucho 2.jpeg'
+      nombre: 'Profesora Lucia',
+      descripcion: 'Experta en matemáticas y física con más de 10 años de experiencia.',
+      imagen: 'assets/img/cucho2.jpeg'
     },
     {
-      nombre: 'Profesora jose López',
+      nombre: 'Profesora Jose López',
       descripcion: 'Especialista en ciencias sociales y comunicación.',
       imagen: 'assets/img/cucho1.jpeg'
     },
@@ -24,7 +24,7 @@ export class MejoresProfesoresComponent {
     },
     {
       nombre: 'Profesora Luisa',
-      descripcion: 'Docente apasionado por la tecnología y la informática.',
+      descripcion: 'Docente apasionada por la tecnología y la informática.',
       imagen: 'assets/img/cucho4.jpg'
     },
     {
@@ -38,4 +38,8 @@ export class MejoresProfesoresComponent {
       imagen: 'assets/img/cucho6.jpg'
     },
   ];
+
+  onImageError(event: any) {
+    event.target.src = 'assets/img/profe.jpg'; // Fallback image
+  }
 }

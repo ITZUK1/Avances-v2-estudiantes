@@ -1,12 +1,12 @@
 <header>
-    <p>Los mejores profesores del mes</p>
-  </header>
-  
-  <main class="mural-container">
-    <div *ngFor="let profesor of profesores" class="professor-card">
-      <img [src]="profesor.imagen" [alt]="profesor.nombre">
-      <h3>{{ profesor.nombre }}</h3>
-      <p>{{ profesor.descripcion }}</p>
-    </div>
-  </main>
-  
+  <h1>Los mejores profesores del mes</h1>
+  <p>Conozca a los mejores educadores que nos inspiran cada día</p>
+</header>
+
+<main class="mural-container">
+  <div *ngFor="let profesor of profesores" class="professor-card">
+    <img [src]="profesor.imagen" [alt]="profesor.nombre" (error)="onImageError($event)">
+    <h3>{{ profesor.nombre }}</h3>
+    <p>{{ profesor.descripcion }}</p>
+  </div>
+</main>

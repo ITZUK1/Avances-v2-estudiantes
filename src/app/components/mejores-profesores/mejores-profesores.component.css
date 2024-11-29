@@ -1,67 +1,84 @@
-
 :host {
-    display: block;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-  }
-  
-  header {
-    text-align: center;
-    padding: 20px;
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 2.5em;
-  }
-  
-  header p {
-    margin: 5px 0 0;
-    font-size: 1.2em;
-  }
-  
+  display: block;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
 
+header {
+  text-align: center;
+  padding: 40px;
+  background-color: #4caf50;
+  color: white;
+  border-bottom: 2px solid #388e3c;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+header p {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.mural-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.professor-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.professor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.professor-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.professor-card h3 {
+  margin: 15px 0;
+  font-size: 1.5em;
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.professor-card p {
+  margin: 0 10px 20px;
+  font-size: 1em;
+  color: #555;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
   .mural-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
   }
+}
 
-  .professor-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s;
+@media (max-width: 480px) {
+  .mural-container {
+    grid-template-columns: 1fr;
   }
-  
-  .professor-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .professor-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .professor-card h3 {
-    margin: 10px 0;
-    font-size: 1.5em;
-    color: #4caf50;
-  }
-  
-  .professor-card p {
-    margin: 0 10px 10px;
-    font-size: 1em;
-    color: #555;
-  }
+}
   
