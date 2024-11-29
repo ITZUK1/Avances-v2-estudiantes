@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 interface Materia {
@@ -17,22 +17,23 @@ interface Materia {
 })
 export class MateriasComponent implements OnInit {
   materias: Materia[] = [];
-
   materiaSeleccionada: Materia | null = null;
   estadoClase: string = '';
-  tiempoRestante: number = 10; // Adjust time as needed
+  tiempoRestante: number = 10; // Tiempo en segundos para la clase
   cronometroActivo: boolean = false;
-  subscription: any;
+  subscription: Subscription | null = null;
 
   ngOnInit(): void {
     this.loadMateriasFromLocalStorage();
   }
-
   loadMateriasFromLocalStorage() {
     const storedMaterias = localStorage.getItem('materias');
     if (storedMaterias) {
       try {
-        this.materias = JSON.parse(storedMaterias);
+        this.materias = JSON.parse(storedMaterias).map((materia: Materia) => ({
+          ...materia,
+          inProgress: false // Reiniciar siempre al cargar
+        }));
       } catch (error) {
         console.error("Error parsing materias from localStorage:", error);
         this.materias = this.getDefaultMaterias();
@@ -41,6 +42,7 @@ export class MateriasComponent implements OnInit {
       this.materias = this.getDefaultMaterias();
     }
   }
+  
 
   getDefaultMaterias(): Materia[] {
     return [
@@ -60,36 +62,63 @@ export class MateriasComponent implements OnInit {
   }
 
   iniciarClase(materia: Materia) {
+    console.log('Iniciar clase llamada para:', materia.nombre); // Agregado para depurar
     if (!this.cronometroActivo && !materia.inProgress) {
+      console.log('Clase iniciada para:', materia.nombre); // Confirmar condición
       materia.inProgress = true;
       this.materiaSeleccionada = materia;
       this.estadoClase = 'Clase Iniciada';
       this.cronometroActivo = true;
-
+  
       this.subscription = interval(1000).pipe(
         takeWhile(() => this.cronometroActivo && this.tiempoRestante > 0)
       ).subscribe(() => {
         this.tiempoRestante--;
+        console.log('Tiempo restante:', this.tiempoRestante); // Confirmar decrecimiento del tiempo
         if (this.tiempoRestante === 0) {
           this.estadoClase = 'Se terminó la clase';
           this.terminarClase();
         }
       });
+  
       this.saveMateriasToLocalStorage();
+    } else {
+      console.warn('No se puede iniciar la clase. Estado actual:', { cronometroActivo: this.cronometroActivo, inProgress: materia.inProgress });
     }
   }
+  
 
   terminarClase() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+
+    if (this.materiaSeleccionada) {
+      const materiaIndex = this.materias.findIndex(m => m.nombre === this.materiaSeleccionada?.nombre);
+      if (materiaIndex !== -1) {
+        this.materias[materiaIndex].inProgress = false;
+      }
+    }
+
+    this.materiaSeleccionada = null;
+    this.estadoClase = '';
+    this.tiempoRestante = 10;
+    this.cronometroActivo = false;
+
+    this.saveMateriasToLocalStorage();
+  }
+
+  resetAll() {
+    // Restablecer todo a su estado inicial
+    this.materias = this.getDefaultMaterias();
     this.materiaSeleccionada = null;
     this.estadoClase = '';
     this.tiempoRestante = 10;
     this.cronometroActivo = false;
     if (this.subscription) {
       this.subscription.unsubscribe();
-    }
-    const materiaIndex = this.materias.findIndex(m => m.nombre === this.materiaSeleccionada?.nombre);
-    if (materiaIndex !== -1) {
-      this.materias[materiaIndex].inProgress = false;
+      this.subscription = null;
     }
     this.saveMateriasToLocalStorage();
   }

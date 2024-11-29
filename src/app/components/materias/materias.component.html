@@ -1,25 +1,32 @@
 <div class="container mt-4">
-  <div class="row">
-    <div class="col-md-4" *ngFor="let materia of materias">
-      <div class="card mb-3 card-hover">
+  <div class="row g-4">
+    <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let materia of materias">
+      <div class="card advanced-card">
         <div class="card-body">
           <h5 class="card-title">{{ materia.nombre }}</h5>
-          <p class="card-text"><strong>Profesor:</strong> {{ materia.profesor }}</p>
-          <p class="card-text"><strong>Horario del profe:</strong> {{ materia.horario }}</p>
-          <p class="card-text"><strong>Semestre:</strong> {{ materia.semestre }}</p>
-          <button class="btn btn-primary" [disabled]="materia.inProgress || cronometroActivo" (click)="iniciarClase(materia)">Iniciar Clase</button>
+          <p class="card-text"><strong>👨‍🏫 Profesor:</strong> {{ materia.profesor }}</p>
+          <p class="card-text"><strong>🕒 Horario:</strong> {{ materia.horario }}</p>
+          <p class="card-text"><strong>📚 Semestre:</strong> {{ materia.semestre }}</p>
+          <button 
+            class="btn advanced-btn btn-primary" 
+            [disabled]="materia.inProgress || cronometroActivo" 
+            (click)="iniciarClase(materia)">
+            Iniciar Clase
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="materiaSeleccionada" class="class-info mt-4">
-    <h2>Clase Iniciada:</h2>
-    <p><strong>Materia:</strong> {{ materiaSeleccionada.nombre }}</p>
-    <p><strong>Profesor:</strong> {{ materiaSeleccionada.profesor }}</p>
-    <p *ngIf="cronometroActivo"><strong>Tiempo restante:</strong> {{ tiempoRestante | number:'2.0-0' }} segundos</p>
-    <p *ngIf="!cronometroActivo && estadoClase === 'Se terminó la clase'"><strong>Tiempo restante:</strong> 0 segundos</p>
-    <p><strong>Estado:</strong> {{ estadoClase }}</p>
-    <button class="btn btn-danger" (click)="terminarClase()">Terminar Clase</button>
+  <div *ngIf="materiaSeleccionada" class="floating-screen">
+    <div class="floating-content">
+      <h1>📖 Clase Iniciada</h1>
+      <p><strong>Materia:</strong> {{ materiaSeleccionada.nombre }}</p>
+      <p><strong>Profesor:</strong> {{ materiaSeleccionada.profesor }}</p>
+      <p *ngIf="cronometroActivo"><strong>⏳ Tiempo restante:</strong> {{ tiempoRestante | number:'2.0-0' }} segundos</p>
+      <p *ngIf="!cronometroActivo && estadoClase === 'Se terminó la clase'"><strong>⏳ Tiempo restante:</strong> 0 segundos</p>
+      <p><strong>Estado:</strong> {{ estadoClase }}</p>
+      <button class="btn advanced-btn btn-danger" (click)="terminarClase()">Terminar Clase</button>
+    </div>
   </div>
 </div>

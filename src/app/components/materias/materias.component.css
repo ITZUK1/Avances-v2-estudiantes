@@ -1,48 +1,159 @@
+/* Contenedor principal */
 .container {
     margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e0f7fa, #f8bbd0);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.card-hover {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
+/* Tarjetas avanzadas */
+.advanced-card {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border-radius: 15px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-hover:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+.advanced-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.8);
 }
 
-.class-info {
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.class-info:hover {
-    background-color: #e2e6ea;  
-}
-
+/* Títulos */
 .card-title {
-    font-size: 1.5rem; 
-    font-weight: bold; 
-    margin-bottom: 10px; 
-    color: #007BFF; 
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1e88e5;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* Textos */
 .card-text {
-    margin-bottom: 5px; 
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #424242;
 }
 
-.btn-primary, .btn-danger {
-    transition: background-color 0.3s ease, transform 0.2s ease; 
+/* Botones avanzados */
+.advanced-btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.btn-primary:hover, .btn-danger:hover {
-    transform: translateY(-2px); 
-    background-color: #0056b3; 
+.btn-primary {
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(145deg, #0056b3, #003a75);
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background: linear-gradient(145deg, #dc3545, #b02a37);
+    border: none;
+    color: #fff;
 }
 
 .btn-danger:hover {
-    background-color: #c82333; 
+    background: linear-gradient(145deg, #b02a37, #821e28);
+    transform: scale(1.05);
+}
+
+/* Estilos para la pantalla flotante */
+/* Estilos para la pantalla flotante */
+/* Estilos para la pantalla flotante */
+.floating-screen {
+    position: fixed;
+    top: 50%; /* Centrado verticalmente */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translate(-50%, -50%); /* Ajuste para centrar completamente */
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Eliminar animación de desvanecimiento */
+}
+
+.floating-content {
+    background: linear-gradient(135deg, #ffffff, #f1f1f1);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.1); /* Menos sombra para evitar borde negro */
+    width: 90%;
+    max-width: 400px;
+    /* Quitar cualquier borde negro extra */
+    border: none;
+}
+
+.floating-content h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.floating-content h2 {
+    font-size: 2rem;
+    color: #dc3545;
+    margin-bottom: 10px;
+}
+
+.floating-content p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.floating-content button {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #dc3545, #b02a37);
+    border: none;
+    color: #fff;
+}
+
+
+/* Animación de desvanecimiento del modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .advanced-btn {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes de la pantalla flotante */
+    .floating-screen {
+        top: 10px;
+        right: 10px;
+        width: 100%;
+        max-width: 400px;
+    }
 }
