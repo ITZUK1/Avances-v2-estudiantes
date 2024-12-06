@@ -35,7 +35,5 @@ export class MejoresProfesoresComponent {
     },
   ];
 
-  onImageError(event: any) {
-    event.target.src = 'assets/img/profe.jpg'; // Fallback image
-  }
+  onImageError(event: any){}
 }
