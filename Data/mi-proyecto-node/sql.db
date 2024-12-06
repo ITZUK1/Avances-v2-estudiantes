@@ -61,3 +61,6 @@ ALTER TABLE Estudiante ADD UNIQUE (nombre);
 
 -- Asegurarse de que el nombre de la materia sea único
 ALTER TABLE Materia ADD UNIQUE (nombre);
+
+ALTER TABLE Estudiante ADD avatar_url VARCHAR(255);
+

@@ -7,11 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MejoresProfesoresComponent {
   profesores = [
-    {
-      nombre: 'Profesora Lucia',
-      descripcion: 'Experta en matemáticas y física con más de 10 años de experiencia.',
-      imagen: 'assets/img/cucho2.jpeg'
-    },
+    
     {
       nombre: 'Profesora Jose López',
       descripcion: 'Especialista en ciencias sociales y comunicación.',
