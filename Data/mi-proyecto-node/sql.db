@@ -1,5 +1,4 @@
-//Creación de la base de datos //
-
+se actualizo la DATABASE
 
 CREATE DATABASE ColegioDB;
 USE ColegioDB;
@@ -7,7 +6,7 @@ USE ColegioDB;
 -- Creación de la tabla Profesor
 CREATE TABLE Profesor (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    documento_identidad VARCHAR(20) NOT NULL,
+    documento_identidad VARCHAR(20) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     fecha_nacimiento DATE,
     telefono VARCHAR(15),
@@ -17,35 +16,39 @@ CREATE TABLE Profesor (
 -- Creación de la tabla Curso
 CREATE TABLE Curso (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    descripcion VARCHAR(255) NOT NULL
+    descripcion VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Creación de la tabla Estudiante
 CREATE TABLE Estudiante (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    documento_identidad VARCHAR(20) NOT NULL,
+    documento_identidad VARCHAR(20) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     fecha_nacimiento DATE,
     telefono VARCHAR(15),
     status ENUM('activo', 'inactivo') DEFAULT 'activo',
     curso_id INT,  -- Relación con Curso
-    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL
+    avatar_url VARCHAR(255),
+    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL,
+    UNIQUE (documento_identidad, curso_id) -- Evita duplicados en un curso
 );
 
 -- Creación de la tabla Materia
 CREATE TABLE Materia (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT,
-    semestre VARCHAR(10),
-    fecha_inicio DATE,
+    semestre VARCHAR(10) NOT NULL,
+    fecha_inicio DATE NOT NULL,
     status ENUM('activo', 'inactivo') DEFAULT 'activo',
     profesor_id INT,  -- Relación con Profesor
     curso_id INT,  -- Relación con Curso
     FOREIGN KEY (profesor_id) REFERENCES Profesor(id) ON DELETE SET NULL,
-    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL);
-    
-    -- Creación de la tabla Inasistencia
+    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL,
+    UNIQUE (nombre, curso_id, semestre) -- Evita duplicados por curso y semestre
+);
+
+-- Creación de la tabla Inasistencia
 CREATE TABLE Inasistencia (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fecha DATE NOT NULL,  -- Fecha de la inasistencia
@@ -56,11 +59,39 @@ CREATE TABLE Inasistencia (
     FOREIGN KEY (materia_id) REFERENCES Materia(id) ON DELETE CASCADE
 );
 
--- Asegurarse de que el nombre del estudiante sea único
-ALTER TABLE Estudiante ADD UNIQUE (nombre);
+-- Índices para optimizar consultas frecuentes
+CREATE INDEX idx_estudiante_curso ON Estudiante(curso_id);
+CREATE INDEX idx_materia_profesor ON Materia(profesor_id);
+CREATE INDEX idx_materia_curso ON Materia(curso_id);
 
--- Asegurarse de que el nombre de la materia sea único
-ALTER TABLE Materia ADD UNIQUE (nombre);
+-- Cambiamos el delimitador para los triggers
+DELIMITER $$
 
-ALTER TABLE Estudiante ADD avatar_url VARCHAR(255);
+-- Validaciones lógicas:
+-- Asegurarse de que la fecha de nacimiento no sea futura
+CREATE TRIGGER trg_validar_fecha_nacimiento BEFORE INSERT ON Estudiante
+FOR EACH ROW
+BEGIN
+    IF NEW.fecha_nacimiento > CURDATE() THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha de nacimiento no puede ser futura.';
+    END IF;
+END;
+$$
 
+-- Validar que un profesor no pueda estar asignado a la misma materia en el mismo semestre más de una vez
+CREATE TRIGGER trg_validar_profesor_materia BEFORE INSERT ON Materia
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM Materia
+        WHERE profesor_id = NEW.profesor_id
+          AND curso_id = NEW.curso_id
+          AND semestre = NEW.semestre
+    ) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El profesor ya está asignado a esta materia en el mismo curso y semestre.';
+    END IF;
+END;
+$$
+
+-- Regresar el delimitador original
+DELIMITER ;
