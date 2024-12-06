@@ -35,7 +35,10 @@
   <button (click)="checkOnlineStatus()">Actualizar Estado</button>
   <br>
   <button (click)="showSubjectsPopup()">Ver Materias</button>
+  <br>
+  <button (click)="showInasistencias()">Ver Inasistencias</button>
 
+  <!-- Popup de materias -->
   <div *ngIf="showPopup" class="popup">
     <h2>Materias</h2>
     <table>
@@ -53,5 +56,27 @@
       </tbody>
     </table>
     <button (click)="closePopup()">Cerrar</button>
+  </div>
+
+  <!-- Popup de inasistencias -->
+  <div *ngIf="showInasistenciasPopup" class="popup">
+    <h2>Inasistencias</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Materia</th>
+          <th>Motivo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inasistencia of inasistencias">
+          <td>{{ inasistencia.fecha }}</td>
+          <td>{{ inasistencia.materia_nombre }}</td>
+          <td>{{ inasistencia.motivo }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="closeInasistenciasPopup()">Cerrar</button>
   </div>
 </div>

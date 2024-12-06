@@ -102,4 +102,25 @@ export class PantallaEstudianteComponent implements OnInit {
   closePopup() {
     this.showPopup = false;
   }
+
+  inasistencias: any[] = [];
+showInasistenciasPopup: boolean = false;
+
+showInasistencias() {
+  const documento_identidad = this.studentId; // Usar el ID del estudiante
+  this.http.get(`http://localhost:4000/api/inasistencias?estudiante_id=${documento_identidad}`)
+    .subscribe(
+      (data: any) => {
+        this.inasistencias = data;
+        this.showInasistenciasPopup = true;
+      },
+      (error) => {
+        console.error("Error al cargar las inasistencias:", error);
+      }
+    );
+}
+
+closeInasistenciasPopup() {
+  this.showInasistenciasPopup = false;
+}
 }
