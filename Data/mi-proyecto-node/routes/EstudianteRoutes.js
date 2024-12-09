@@ -38,4 +38,19 @@ router.put('/estudiantes/estado/:documento_identidad', (req, res) => {
   });
 });
 
+router.get('/estudiantes/imagen/:documento_identidad', (req, res) => {
+  const query = 'SELECT avatar_url FROM estudiante WHERE documento_identidad = ?';
+  db.query(query, [req.params.documento_identidad], (err, result) => {
+    if (err) return res.status(500).send(err);
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'Estudiante no encontrado' });
+    }
+
+    const avatarUrl = result[0].avatar_url;
+    res.json({ avatar_url: avatarUrl });
+  });
+});
+
+
 module.exports = router;
