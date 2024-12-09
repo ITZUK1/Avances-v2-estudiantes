@@ -42,6 +42,7 @@
       <div class="button-container">
         <button type="button" (click)="agregarMateria()">Agregar Materia</button>
         <button type="button" (click)="toggleInasistenciaForm()">Agregar Inasistencia</button>
+        <button type="button" (click)="obtenerEstudiantes()">Lista</button>
         <span class="error-message" *ngIf="errorMateria">{{ errorMateria }}</span>
         <span class="success-message" *ngIf="estadoNuevaMateria">{{ estadoNuevaMateria }}</span>
       </div>
@@ -68,6 +69,19 @@
         <button type="submit">Agregar Inasistencia</button>
         <button type="button" (click)="toggleInasistenciaForm()">Cerrar</button>
       </form>
+    </div>
+  </div>
+
+  <!-- Pantalla flotante para mostrar estudiantes -->
+  <div *ngIf="mostrarListaEstudiantes" class="modal">
+    <div class="modal-lista-estudiantes">
+      <h2>Lista de Estudiantes</h2>
+      <ul>
+        <li *ngFor="let estudiante of estudiantes">
+          {{ estudiante.nombre }} - {{ estudiante.status }}
+        </li>
+      </ul>
+      <button type="button" (click)="mostrarListaEstudiantes = false">Cerrar</button>
     </div>
   </div>
 </div>

@@ -23,10 +23,14 @@ export class pantallProfesorComponent {
   mostrarFormularioInasistencia: boolean = false;
   inasistencia = {
     fecha: '',
-    estudiante_nombre: '',  // Cambio aquí
-    materia_nombre: '',     // Cambio aquí
+    estudiante_nombre: '',
+    materia_nombre: '',
     motivo: ''
   };
+
+  // Variables para mostrar estudiantes
+  estudiantes: any[] = [];  // Para almacenar la lista de estudiantes
+  mostrarListaEstudiantes: boolean = false;  // Para controlar la visibilidad del modal
 
   constructor(private http: HttpClient) {}
 
@@ -53,11 +57,10 @@ export class pantallProfesorComponent {
   }
 
   agregarInasistencia() {
-    // Aquí se envían los nombres del estudiante y la materia
     this.http.post('http://localhost:4000/api/inasistencia', {
       fecha: this.inasistencia.fecha,
-      estudiante_nombre: this.inasistencia.estudiante_nombre,  // Usamos el nombre
-      materia_nombre: this.inasistencia.materia_nombre,        // Usamos el nombre
+      estudiante_nombre: this.inasistencia.estudiante_nombre,
+      materia_nombre: this.inasistencia.materia_nombre,
       motivo: this.inasistencia.motivo
     })
     .subscribe(
@@ -70,5 +73,19 @@ export class pantallProfesorComponent {
         alert("Error al agregar la inasistencia: " + error.error.error);
       }
     );
+  }
+
+  // Método para obtener la lista de estudiantes
+  obtenerEstudiantes() {
+    this.http.get<any[]>('http://localhost:4000/api/estudiantes')
+      .subscribe(
+        (response) => {
+          this.estudiantes = response;
+          this.mostrarListaEstudiantes = true;  // Mostrar la lista cuando se carguen los estudiantes
+        },
+        (error) => {
+          console.error('Error al obtener estudiantes', error);
+        }
+      );
   }
 }

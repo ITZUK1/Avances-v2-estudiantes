@@ -180,4 +180,71 @@ textarea:focus {
   flex-grow: 1; /* Permite que los botones crezcan igualmente para ocupar el espacio disponible */
 }
 
+/* Estilos para el modal de lista de estudiantes */
+.modal-lista-estudiantes {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-height: 80%;
+  overflow-y: auto; /* Agrega scroll si la lista es muy larga */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-lista-estudiantes h2 {
+  font-size: 22px;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-lista-estudiantes ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal-lista-estudiantes li {
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.modal-lista-estudiantes li:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.modal-lista-estudiantes li .status {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.modal-lista-estudiantes li .status.inactivo {
+  color: #f44336;
+}
+
+.modal-lista-estudiantes button {
+  background-color: #00a2ff;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 20px auto 0;
+  width: 150px;
+}
+
+.modal-lista-estudiantes button:hover {
+  background-color: #007bb5;
+}
+
+
 
