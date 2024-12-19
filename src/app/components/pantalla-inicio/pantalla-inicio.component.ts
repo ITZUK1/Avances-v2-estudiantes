@@ -127,19 +127,21 @@ export class PantallaInicioComponent {
   }
   
 
-  // Verificar si un ID ya está en uso
-  private checkIdExists(id: string, type: 'profesor' | 'estudiante'): Promise<boolean> {
-    const endpoint =
-      type === 'profesor'
-        ? `http://localhost:4000/api/profesor/documento_identidad/${id}`
-        : `http://localhost:4000/api/estudiantes/documento_identidad/${id}`;
-    return new Promise((resolve) => {
-      this.http.get(endpoint).subscribe(
-        (data: any) => resolve(data && data.length > 0),
-        () => resolve(false)
-      );
-    });
+// Verificar si un ID ya está en uso
+private async checkIdExists(id: string, type: 'profesor' | 'estudiante'): Promise<boolean> {
+  const endpoint =
+    type === 'profesor'
+      ? `http://localhost:4000/api/profesor/documento_identidad/${id}`
+      : `http://localhost:4000/api/estudiantes/documento_identidad/${id}`;
+
+  try {
+    const data: any = await this.http.get(endpoint).toPromise();
+    return data && data.length > 0;
+  } catch (error) {
+    return false;
   }
+}
+
 
   // Abrir y cerrar modales
   openTeacherModal(): void {

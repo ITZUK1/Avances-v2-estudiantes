@@ -54,8 +54,13 @@ export class PantallaEstudianteComponent implements OnInit {
     if (target.files && target.files[0]) {
       const formData = new FormData();
       formData.append('avatar', target.files[0]);
+  
       const documento_identidad = this.studentId;
-
+      if (!documento_identidad) {
+        console.error('El documento_identidad no está definido.');
+        return;
+      }
+  
       this.http.put(`http://localhost:4000/api/estudiantes/imagen/${documento_identidad}`, formData)
         .subscribe(
           (response: any) => {
@@ -68,6 +73,8 @@ export class PantallaEstudianteComponent implements OnInit {
         );
     }
   }
+  
+  
 
   triggerFileInput() {
     this.fileInput.nativeElement.click();

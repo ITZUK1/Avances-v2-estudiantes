@@ -42,14 +42,6 @@ export class pantallProfesorComponent {
     }
 
     this.http.post('/api/materia', this.nuevaMateria)
-      .subscribe(
-        (response: any) => {
-          this.nuevaMateria = { nombre: '', descripcion: '', semestre: '', fecha_inicio: '', status: 'activo', profesor_id: null, curso_id: null };
-        },
-        error => {
-          this.errorMateria = "Error al agregar la materia: " + error.error.error;
-        }
-      );
   }
 
   toggleInasistenciaForm() {
@@ -57,23 +49,20 @@ export class pantallProfesorComponent {
   }
 
   agregarInasistencia() {
-    this.http.post('http://localhost:4000/api/inasistencia', {
-      fecha: this.inasistencia.fecha,
-      estudiante_nombre: this.inasistencia.estudiante_nombre,
-      materia_nombre: this.inasistencia.materia_nombre,
-      motivo: this.inasistencia.motivo
-    })
-    .subscribe(
-      (response: any) => {
-        alert("Inasistencia agregada con éxito!");
-        this.inasistencia = { fecha: '', estudiante_nombre: '', materia_nombre: '', motivo: '' };
-        this.toggleInasistenciaForm();  // Cierra el formulario después de agregar
-      },
-      error => {
-        alert("Error al agregar la inasistencia: " + error.error.error);
-      }
-    );
+    this.http.post('http://localhost:4000/api/inasistencia', this.inasistencia)
+      .subscribe(
+        (response: any) => {
+          alert("Inasistencia agregada con éxito!");
+          this.inasistencia = { fecha: '', estudiante_nombre: '', materia_nombre: '', motivo: '' };
+          this.toggleInasistenciaForm();  // Cierra el formulario después de agregar
+        },
+        (error: any) => {
+          console.error("Error al registrar la inasistencia:", error);
+          alert("Hubo un problema al registrar la inasistencia. Intenta nuevamente.");
+        }
+      );
   }
+  
 
   // Método para obtener la lista de estudiantes
   obtenerEstudiantes() {

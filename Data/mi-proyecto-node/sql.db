@@ -95,3 +95,105 @@ $$
 
 -- Regresar el delimitador original
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////server/////////////////
+
+-- Creación de la tabla Profesor
+CREATE TABLE Profesor (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    documento_identidad VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE,
+    telefono VARCHAR(15),
+    status NVARCHAR(10) DEFAULT 'activo' CHECK (status IN ('activo', 'inactivo'))
+);
+GO
+
+-- Creación de la tabla Curso
+CREATE TABLE Curso (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL UNIQUE
+);
+GO
+
+-- Creación de la tabla Estudiante
+CREATE TABLE Estudiante (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    documento_identidad VARCHAR(20) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE,
+    telefono VARCHAR(15),
+    status NVARCHAR(10) DEFAULT 'activo' CHECK (status IN ('activo', 'inactivo')),
+    curso_id INT NULL, -- Relación con Curso
+    avatar_url VARCHAR(255),
+    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL
+);
+GO
+
+-- Crear índice único para evitar duplicados en documento_identidad y curso_id
+CREATE UNIQUE INDEX UQ_documento_curso ON Estudiante (documento_identidad, curso_id);
+GO
+
+-- Creación de la tabla Materia
+CREATE TABLE Materia (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion TEXT NULL,
+    semestre NVARCHAR(10) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    status NVARCHAR(10) DEFAULT 'activo' CHECK (status IN ('activo', 'inactivo')),
+    profesor_id INT NULL, -- Relación con Profesor
+    curso_id INT NULL, -- Relación con Curso
+    FOREIGN KEY (profesor_id) REFERENCES Profesor(id) ON DELETE SET NULL,
+    FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE SET NULL
+);
+GO
+
+-- Crear índice único para evitar duplicados por curso y semestre
+CREATE UNIQUE INDEX UQ_materia_curso_semestre ON Materia (nombre, curso_id, semestre);
+GO
+
+-- Creación de la tabla Inasistencia
+CREATE TABLE Inasistencia (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    fecha DATE NOT NULL, -- Fecha de la inasistencia
+    estudiante_id INT NOT NULL, -- Relación con Estudiante
+    materia_id INT NOT NULL, -- Relación con Materia
+    motivo TEXT NULL, -- Motivo opcional
+    FOREIGN KEY (estudiante_id) REFERENCES Estudiante(id) ON DELETE CASCADE,
+    FOREIGN KEY (materia_id) REFERENCES Materia(id) ON DELETE CASCADE
+);
+GO
+
+
+DROP TABLE Inasistencia;
+DROP TABLE Materia;
+DROP TABLE Estudiante;
+DROP TABLE Curso;
+DROP TABLE Profesor;
+
+SELECT * FROM Inasistencia;
+SELECT * FROM Materia;
+SELECT * FROM Estudiante;
+SELECT * FROM Curso;
+SELECT * FROM Profesor;
+
+
+
+
