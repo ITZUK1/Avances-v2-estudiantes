@@ -1,9 +1,10 @@
 const sql = require('mssql');
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
-// Sirve archivos estáticos desde la carpeta "uploads"
+const app = express();
 
 // Configuración de la base de datos
 const dbConfig = {
@@ -12,18 +13,18 @@ const dbConfig = {
     server: process.env.DB_SERVER,
     database: process.env.DB_DATABASE,
     options: {
-        encrypt: process.env.DB_ENCRYPT === 'false',
+        encrypt: process.env.DB_ENCRYPT === 'true', // Validación de tipo
         trustServerCertificate: process.env.DB_TRUST_CERTIFICATE === 'true',
     },
 };
-
-const app = express();
 
 // Middlewares
 app.use(express.json());
 app.use(cors());
 
-// Middleware para inyectar la conexión a la base de datos
+// Sirve archivos estáticos desde la carpeta "uploads"
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Middleware para inyectar la conexión a la base de datos
 app.use(async (req, res, next) => {
     try {
@@ -35,8 +36,7 @@ app.use(async (req, res, next) => {
     }
 });
 
-
-// Importar rutas5
+// Importar rutas
 const estudianteRoutes = require('./routes/EstudianteRoutes');
 const profesorRoutes = require('./routes/ProfesorRoutes');
 const materiaRoutes = require('./routes/materiaRoutes');
@@ -47,6 +47,12 @@ app.use('/api', estudianteRoutes);
 app.use('/api', profesorRoutes);
 app.use('/api', materiaRoutes);
 app.use('/api', inasistenciaRoutes);
+
+// Manejo global de errores
+app.use((err, req, res, next) => {
+    console.error('Error no manejado:', err.message);
+    res.status(500).send('Error interno del servidor');
+});
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 4000;
