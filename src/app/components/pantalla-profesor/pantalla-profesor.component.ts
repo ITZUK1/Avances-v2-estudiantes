@@ -35,13 +35,19 @@ export class pantallProfesorComponent {
   constructor(private http: HttpClient) {}
 
   agregarMateria() {
-    this.errorMateria = '';
-    if (this.nuevaMateria.nombre.trim() === '') {
-      this.errorMateria = "Por favor, ingrese el nombre de la materia.";
-      return;
-    }
-
-    this.http.post('/api/materia', this.nuevaMateria)
+    this.http.post('http://localhost:4000/api/materia', this.nuevaMateria)
+      .subscribe(
+        (response: any) => {
+          console.log('Materia agregada:', response);
+          this.estadoNuevaMateria = 'Materia agregada exitosamente';
+          this.errorMateria = '';
+        },
+        (error) => {
+          console.error('Error al agregar materia:', error);
+          this.errorMateria = 'Error al agregar materia';
+          this.estadoNuevaMateria = '';
+        }
+      );
   }
 
   toggleInasistenciaForm() {
