@@ -23,8 +23,12 @@ router.post('/materia', (req, res) => {
         .input('status', sql.VarChar, status)
         .query(query)
         .then(result => {
-            const insertId = result.recordset[0].id;  // Obtenemos el ID insertado
-            res.json({ id: insertId, ...req.body });
+            if (result.recordset.length > 0) {
+                const insertId = result.recordset[0].id;  // Obtenemos el ID insertado
+                res.json({ id: insertId, ...req.body });
+            } else {
+                res.status(500).json({ error: "No se pudo obtener el ID insertado" });
+            }
         })
         .catch(err => {
             console.error("Error al insertar en la base de datos:", err);

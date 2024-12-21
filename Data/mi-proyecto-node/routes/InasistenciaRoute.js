@@ -5,59 +5,33 @@ const sql = require('mssql'); // Asegúrate de importar mssql
 // Crear una inasistencia utilizando el nombre del estudiante y el nombre de la materia
 router.post('/inasistencia', (req, res) => {
     const { fecha, estudiante_nombre, materia_nombre, motivo } = req.body;
+    const query = `
+        INSERT INTO Inasistencia (fecha, estudiante_id, materia_id, motivo)
+        OUTPUT INSERTED.id
+        VALUES (@fecha, 
+                (SELECT id FROM Estudiante WHERE nombre = @estudiante_nombre), 
+                (SELECT id FROM Materia WHERE nombre = @materia_nombre), 
+                @motivo);
+    `;
 
-    // Buscar el id del estudiante por su nombre
-   // Buscar el id del estudiante por su nombre
-const queryEstudiante = 'SELECT id FROM Estudiante WHERE nombre = @estudiante_nombre';
-req.pool.request()
-    .input('estudiante_nombre', sql.VarChar, estudiante_nombre)
-    .query(queryEstudiante)
-    .then(resultsEstudiante => {
-        if (resultsEstudiante.recordset.length === 0) {
-            return res.status(404).json({ error: "Estudiante no encontrado" });
-        }
-        const estudiante_id = resultsEstudiante.recordset[0]?.id; // Usar el operador de encadenamiento opcional para evitar el error
-
-        // Buscar el id de la materia por su nombre
-        const queryMateria = 'SELECT id FROM Materia WHERE nombre = @materia_nombre';
-        req.pool.request()
-            .input('materia_nombre', sql.VarChar, materia_nombre)
-            .query(queryMateria)
-            .then(resultsMateria => {
-                if (resultsMateria.recordset.length === 0) {
-                    return res.status(404).json({ error: "Materia no encontrada" });
-                }
-                const materia_id = resultsMateria.recordset[0].id;
-
-                // Insertar la inasistencia con los ids obtenidos
-                const query = `
-                    INSERT INTO Inasistencia (fecha, estudiante_id, materia_id, motivo)
-                    VALUES (@fecha, @estudiante_id, @materia_id, @motivo)
-                `;
-                req.pool.request()
-                    .input('fecha', sql.Date, fecha)
-                    .input('estudiante_id', sql.Int, estudiante_id)
-                    .input('materia_id', sql.Int, materia_id)
-                    .input('motivo', sql.VarChar, motivo)
-                    .query(query)
-                    .then(result => {
-                        res.json({ id: result.recordset[0].id, ...req.body });
-                    })
-                    .catch(err => {
-                        console.error("Error al insertar en la base de datos:", err);
-                        return res.status(500).json({ error: "Error en la base de datos" });
-                    });
-            })
-            .catch(err => {
-                console.error("Error al buscar la materia:", err);
-                return res.status(500).json({ error: "Error al buscar la materia" });
-            });
-    })
-    .catch(err => {
-        console.error("Error al buscar el estudiante:", err);
-        return res.status(500).json({ error: "Error al buscar el estudiante" });
-    });
-
+    req.pool.request()
+        .input('fecha', sql.Date, fecha)
+        .input('estudiante_nombre', sql.VarChar, estudiante_nombre)
+        .input('materia_nombre', sql.VarChar, materia_nombre)
+        .input('motivo', sql.VarChar, motivo)
+        .query(query)
+        .then(result => {
+            if (result.recordset.length > 0) {
+                const insertId = result.recordset[0].id;  // Obtenemos el ID insertado
+                res.json({ id: insertId, ...req.body });
+            } else {
+                res.status(500).json({ error: "No se pudo obtener el ID insertado" });
+            }
+        })
+        .catch(err => {
+            console.error("Error al insertar en la base de datos:", err);
+            return res.status(500).json({ error: "Error en la base de datos" });
+        });
 });
 
 // Obtener todas las inasistencias
